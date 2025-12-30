@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuScene: BB_MainMenu
+  levelList:
+  - BB_TestScene
 --- !u!1 &1044559819
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,15 +9,48 @@ public class BB_LevelLoader : MonoBehaviour
     [SerializeField]
     private string mainMenuScene;
 
+
     private string currentScene;
     private int currentSceneIndex;
+    [SerializeField]
+    private List<string> levelList;
+
+    #region On Enable/Disable
+    private void OnEnable()
+    {
+        Debug.Log(this.name.ToString() + ": triggered OnEnable");
+
+        BB_MainMenuManager.Event_StartButton += StartButton;
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log(this.name.ToString() + ": triggered OnDisable");
+
+        BB_MainMenuManager.Event_StartButton -= StartButton;
+    }
+
+    #endregion
+
 
     private void Start()
     {
-        StartCoroutine(LoadScene(mainMenuScene));
+        LoadScene(mainMenuScene);
     }
 
-    IEnumerator LoadScene(string _sceneName)
+    void LoadScene(string _sceneToLoad)
+    {
+        if (_sceneToLoad != null)
+            StartCoroutine(ILoadScene(_sceneToLoad));
+        else
+            Debug.LogError(this.name.ToString() + ": LoadScene, no _sceneToLoad");
+    }
+    void ReloadScene()
+    {
+        LoadScene(currentScene);
+    }
+
+    IEnumerator ILoadScene(string _sceneToLoad)
     {
         // Start Unloading previous Scene
         if (currentScene != null)
@@ -32,11 +66,11 @@ public class BB_LevelLoader : MonoBehaviour
 
         // Start Loading New Scene
         AsyncOperation loadSceneAsync =
-            SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Additive);
 
         if (loadSceneAsync == null)
         {
-            Debug.LogError(this.name + ": loadSceneAsync == null");
+            Debug.LogError(this.name.ToString() + ": loadSceneAsync == null");
         }
 
         while (!loadSceneAsync.isDone)
@@ -44,6 +78,12 @@ public class BB_LevelLoader : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        currentScene = _sceneName;
+        currentScene = _sceneToLoad;
+    }
+
+    //Testing
+    void StartButton()
+    {
+        LoadScene(levelList[0]);
     }
 }

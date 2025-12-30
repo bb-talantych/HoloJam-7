@@ -24,7 +24,7 @@ public class BB_GameManager : MonoBehaviour
 
     bool gameOver = false;
 
-    #region GameManager Events
+    #region Events
 
     public static event Action Event_GameStart;
     public static event Action Event_GameOver;
@@ -35,18 +35,22 @@ public class BB_GameManager : MonoBehaviour
     #region On Enable/Disable
     private void OnEnable()
     {
-        Debug.Log(this.name.ToString() + " triggered OnEnable");
+        Debug.Log(this.name.ToString() + ": triggered OnEnable");
 
         Event_GameStart += OnGameStart;
         Event_GameOver += OnGameOver;
+
+        BB_MainMenuManager.Event_StartButton += StartButton;
     }
 
     private void OnDisable() 
     {
-        Debug.Log(this.name.ToString() + " triggered OnDisable");
+        Debug.Log(this.name.ToString() + ": triggered OnDisable");
 
         Event_GameStart -= OnGameStart;
         Event_GameOver -= OnGameOver;
+
+        BB_MainMenuManager.Event_StartButton -= StartButton;
     }
 
     #endregion
@@ -61,12 +65,17 @@ public class BB_GameManager : MonoBehaviour
     #region All Event functions
     private void OnGameStart()
     {
-        Debug.Log("Game Start");
+        Debug.Log(this.name.ToString() + ": Game Start");
     }
 
     private void OnGameOver()
     {
-        Debug.Log("Game Over");
+        Debug.Log(this.name.ToString() + ": Game Over");
+    }
+
+    void StartButton()
+    {
+        Event_GameStart?.Invoke();
     }
 
     #endregion
