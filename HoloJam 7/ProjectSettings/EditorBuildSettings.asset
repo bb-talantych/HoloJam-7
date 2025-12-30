@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Personal Stuff/Burnobad/Bb_Persistance.unity
+    guid: a8dd8058fdd69b34ebb5308018093ebe
+  - enabled: 1
+    path: Assets/Personal Stuff/Burnobad/BB_MainMenu.unity
+    guid: 677cda694df60f74a8d6d28d20fa1407
+  - enabled: 1
+    path: Assets/Personal Stuff/Burnobad/BB_TestScene.unity
+    guid: e657950652a9cc948ac76792e5b18514
   m_configObjects: {}

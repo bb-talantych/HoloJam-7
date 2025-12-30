@@ -22,6 +22,8 @@ public class BB_GameManager : MonoBehaviour
         }
     }
 
+    bool gameOver = false;
+
     #region GameManager Events
 
     public static event Action Event_GameStart;
@@ -29,7 +31,7 @@ public class BB_GameManager : MonoBehaviour
 
     #endregion
 
-    // All local Events must be here
+    // All Events must be here
     #region On Enable/Disable
     private void OnEnable()
     {
@@ -37,14 +39,11 @@ public class BB_GameManager : MonoBehaviour
 
         Event_GameStart += OnGameStart;
         Event_GameOver += OnGameOver;
-
-        Event_GameStart?.Invoke();
     }
 
     private void OnDisable() 
     {
         Debug.Log(this.name.ToString() + " triggered OnDisable");
-        Event_GameOver?.Invoke();
 
         Event_GameStart -= OnGameStart;
         Event_GameOver -= OnGameOver;
@@ -57,8 +56,6 @@ public class BB_GameManager : MonoBehaviour
     {
         if(instance == null)
             instance = this;
-
-
     }
 
     #region All Event functions
