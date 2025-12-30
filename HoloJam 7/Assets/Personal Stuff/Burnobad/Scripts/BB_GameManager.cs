@@ -39,8 +39,6 @@ public class BB_GameManager : MonoBehaviour
 
         Event_GameStart += OnGameStart;
         Event_GameOver += OnGameOver;
-
-        BB_MainMenuManager.Event_StartButton += StartButton;
     }
 
     private void OnDisable() 
@@ -49,8 +47,6 @@ public class BB_GameManager : MonoBehaviour
 
         Event_GameStart -= OnGameStart;
         Event_GameOver -= OnGameOver;
-
-        BB_MainMenuManager.Event_StartButton -= StartButton;
     }
 
     #endregion
@@ -62,7 +58,7 @@ public class BB_GameManager : MonoBehaviour
             instance = this;
     }
 
-    #region All Event functions
+    #region Event Reponses
     private void OnGameStart()
     {
         Debug.Log(this.name.ToString() + ": Game Start");
@@ -71,11 +67,6 @@ public class BB_GameManager : MonoBehaviour
     private void OnGameOver()
     {
         Debug.Log(this.name.ToString() + ": Game Over");
-    }
-
-    void StartButton()
-    {
-        Event_GameStart?.Invoke();
     }
 
     #endregion

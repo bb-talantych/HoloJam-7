@@ -4,8 +4,24 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BB_LevelLoader : MonoBehaviour
+public class BB_SceneManager : MonoBehaviour
 {
+    private static BB_SceneManager instance;
+    public static BB_SceneManager Instance
+    {
+        get
+        {
+            if (instance != null)
+                return instance;
+            else
+            {
+                Debug.LogError("BB_SceneManager instance not setup");
+                return null;
+            }
+
+        }
+    }
+
     [SerializeField]
     private string mainMenuScene;
 
@@ -19,20 +35,20 @@ public class BB_LevelLoader : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log(this.name.ToString() + ": triggered OnEnable");
-
-        BB_MainMenuManager.Event_StartButton += StartButton;
     }
 
     private void OnDisable()
     {
         Debug.Log(this.name.ToString() + ": triggered OnDisable");
-
-        BB_MainMenuManager.Event_StartButton -= StartButton;
     }
 
     #endregion
 
-
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
     private void Start()
     {
         LoadScene(mainMenuScene);
@@ -81,9 +97,21 @@ public class BB_LevelLoader : MonoBehaviour
         currentScene = _sceneToLoad;
     }
 
+    #region Public Methodes
+    public void LoadLevel(string _levelName, string _callerName)
+    {
+        Debug.Log(this.name.ToString() + ": " + _callerName + " called LoadLevel");
+
+        LoadScene(_levelName);
+    }
+
+    #endregion
+    #region Event Reponses
     //Testing
     void StartButton()
     {
         LoadScene(levelList[0]);
     }
+
+    #endregion
 }
