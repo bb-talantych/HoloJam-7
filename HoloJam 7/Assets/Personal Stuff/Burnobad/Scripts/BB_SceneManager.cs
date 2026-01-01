@@ -31,10 +31,14 @@ public class BB_SceneManager : MonoBehaviour
     [SerializeField]
     private List<string> levelList;
 
+    // All Events must be here
     #region On Enable/Disable
     private void OnEnable()
     {
         Debug.Log(this.name.ToString() + ": triggered OnEnable");
+
+        if (instance == null)
+            instance = this;
     }
 
     private void OnDisable()
@@ -43,12 +47,6 @@ public class BB_SceneManager : MonoBehaviour
     }
 
     #endregion
-
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-    }
     private void Start()
     {
         LoadScene(mainMenuScene);

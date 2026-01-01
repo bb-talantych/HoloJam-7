@@ -5,8 +5,42 @@ using UnityEngine.AI;
 
 public class BB_AssignmentManager : MonoBehaviour
 {
+    private static BB_AssignmentManager instance;
+    public static BB_AssignmentManager Instance
+    {
+        get
+        {
+            if (instance != null)
+                return instance;
+            else
+            {
+                Debug.LogError("BB_AssignmentManager instance not setup");
+                return null;
+            }
+
+        }
+    }
+
+    // All Events must be here
+    #region On Enable/Disable
+    private void OnEnable()
+    {
+        Debug.Log(this.name.ToString() + ": triggered OnEnable");
+
+        if (instance == null)
+            instance = this;
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log(this.name.ToString() + ": triggered OnDisable");
+    }
+
+    #endregion
+
     public Camera cam;
     public BB_NavMeshAgent selectedAgent;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -16,15 +50,7 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("characters"))
-                {
-                    BB_NavMeshAgent hitAgent = hit.collider.gameObject.GetComponent<BB_NavMeshAgent>();
-                    selectedAgent = hitAgent;
-                }
-                else
-                {
-                    selectedAgent = null;
-                }
+                SelectionCondition(hit, out selectedAgent);
             }
         }
 
@@ -38,18 +64,37 @@ public class BB_AssignmentManager : MonoBehaviour
                 BB_Task selectedTask;
                 if(AssignCondition(hit, out selectedTask))
                 {
-                    Vector3 movePoint;
-                    selectedTask.Assign(out movePoint);
-                    selectedAgent.AssignTask(movePoint);
+                    selectedAgent.MoveToTask(selectedTask);
                 }
                 else
                 {
-                    selectedAgent.MoveTo(hit.point);
+                    selectedAgent.MoveToPoint(hit.point);
                 }
             }
         }
     }
 
+    public void AskForAssignment(BB_NavMeshAgent _agent, BB_Task _selectedTask)
+    {
+        Debug.Log(_agent.name + ": ask for assignment " + _selectedTask);
+        _selectedTask.Assign(_agent.TalentStats);
+    }
+
+    bool SelectionCondition(RaycastHit _hit, out BB_NavMeshAgent selectedAgent)
+    {
+        selectedAgent = null;
+        if (_hit.collider.gameObject.layer != LayerMask.NameToLayer("characters"))
+            return false;
+
+        BB_NavMeshAgent hitAgent = _hit.collider.gameObject.GetComponent<BB_NavMeshAgent>();
+        if (hitAgent == null)
+            return false;
+        if(!hitAgent.IsAvailable)
+            return false;
+
+        selectedAgent = hitAgent;
+        return true;
+    }
     bool AssignCondition(RaycastHit _hit, out BB_Task selectedTask)
     {
         selectedTask = null;

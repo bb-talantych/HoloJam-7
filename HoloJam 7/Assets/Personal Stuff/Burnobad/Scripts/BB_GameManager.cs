@@ -37,6 +37,9 @@ public class BB_GameManager : MonoBehaviour
     {
         Debug.Log(this.name.ToString() + ": triggered OnEnable");
 
+        if (instance == null)
+            instance = this;
+
         Event_GameStart += OnGameStart;
         Event_GameOver += OnGameOver;
     }
@@ -51,12 +54,6 @@ public class BB_GameManager : MonoBehaviour
 
     #endregion
 
-    // Awake only to initialize stuff once
-    private void Awake()
-    {
-        if(instance == null)
-            instance = this;
-    }
 
     #region Event Reponses
     private void OnGameStart()
