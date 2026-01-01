@@ -9,7 +9,7 @@ public class BB_AssignmentManager : MonoBehaviour
     public BB_NavMeshAgent selectedAgent;
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -28,7 +28,7 @@ public class BB_AssignmentManager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButton(1) && selectedAgent != null)
+        if (Input.GetMouseButtonDown(1) && selectedAgent != null)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -38,8 +38,9 @@ public class BB_AssignmentManager : MonoBehaviour
                 BB_Task selectedTask;
                 if(AssignCondition(hit, out selectedTask))
                 {
-                    selectedAgent.AssignTask(hit.point);
-                    selectedTask.Assign();
+                    Vector3 movePoint;
+                    selectedTask.Assign(out movePoint);
+                    selectedAgent.AssignTask(movePoint);
                 }
                 else
                 {
