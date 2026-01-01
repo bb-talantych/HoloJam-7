@@ -20,9 +20,13 @@ public class BB_NavMeshAgent : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.gameObject.layer == 9)
+                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("characters"))
                 {
-                    selected = true;
+                    BB_NavMeshAgent hitAgent = hit.collider.gameObject.GetComponent<BB_NavMeshAgent>();
+                    if(this == hitAgent)
+                        hitAgent.selected = true;
+                    else
+                        selected = false;
                 }
                 else
                 {
