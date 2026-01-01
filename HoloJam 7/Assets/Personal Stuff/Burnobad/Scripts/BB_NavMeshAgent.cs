@@ -5,46 +5,23 @@ using UnityEngine.AI;
 
 public class BB_NavMeshAgent : MonoBehaviour
 {
-    public Camera cam;   
+    private NavMeshAgent agent;
 
-    public NavMeshAgent agent;
-
-    public bool selected = false;
-
-    void Update()
+    private void Awake()
     {
-        if (Input.GetMouseButton(0))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if(hit.collider.gameObject.layer == LayerMask.NameToLayer("characters"))
-                {
-                    BB_NavMeshAgent hitAgent = hit.collider.gameObject.GetComponent<BB_NavMeshAgent>();
-                    if(this == hitAgent)
-                        hitAgent.selected = true;
-                    else
-                        selected = false;
-                }
-                else
-                {
-                    selected = false;
-                }
-            }
-        }
-
-        if (Input.GetMouseButton(1) && selected)
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if(Physics.Raycast(ray, out hit))
-            {
-                agent.SetDestination(hit.point);
-            }
-        }
+        if(agent == null) 
+            agent = GetComponent<NavMeshAgent>();
     }
 
+
+
+    public void MoveTo(Vector3 _destination)
+    {
+        agent.SetDestination(_destination);
+    }
+    public void AssignTask(Vector3 _destination)
+    {
+        Debug.Log(this.name + ": assigned task");
+        MoveTo(_destination);
+    }
 }
