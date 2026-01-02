@@ -26,6 +26,7 @@ public class BB_Task : MonoBehaviour
     [SerializeField]
     private Slider progressSlider;
 
+    public event Action<BB_Task> Event_TaskAssigned;
     public event Action<BB_Task> Event_TaskFinished;
 
     private void OnEnable()
@@ -42,6 +43,7 @@ public class BB_Task : MonoBehaviour
     {
         Debug.Log(this.name + ": agent assigned");
         isAssigned = true;
+        Event_TaskAssigned?.Invoke(this);
 
         float taskTime = GetTaskTime(_talentStats);
         Debug.Log("taskTime: " + taskTime);

@@ -59,6 +59,11 @@ public class BB_NavMeshAgent : MonoBehaviour
         Debug.Log(this.name + ": moves to task");
         MoveToPoint(_task.MovePoint);
     }
+    public void StopMoving()
+    {
+        //testing
+        MoveToPoint(transform.position);
+    }
     public void StartTask()
     {
         Debug.Log(this.name + ": started task");

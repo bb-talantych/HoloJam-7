@@ -28,32 +28,42 @@ public class BB_GameManager : MonoBehaviour
 
     public static event Action Event_GameStart;
     public static event Action Event_GameOver;
+    public static event Action Event_LevelRestart;
 
     #endregion
 
-    // All Events must be here
     #region On Enable/Disable
     private void OnEnable()
     {
-        Debug.Log(this.name.ToString() + ": triggered OnEnable");
+        //Debug.Log(this.name + ": triggered OnEnable");
 
         if (instance == null)
             instance = this;
 
-        Event_GameStart += OnGameStart;
-        Event_GameOver += OnGameOver;
+        BB_SceneManager.Event_LevelLoaded += OnLevelLoaded;
     }
 
     private void OnDisable() 
     {
-        Debug.Log(this.name.ToString() + ": triggered OnDisable");
-
-        Event_GameStart -= OnGameStart;
-        Event_GameOver -= OnGameOver;
+        //Debug.Log(this.name + ": triggered OnDisable");
+        BB_SceneManager.Event_LevelLoaded -= OnLevelLoaded;
     }
 
     #endregion
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R)) 
+        {
+            RestatLevel();
+        }
+    }
+
+    void RestatLevel()
+    {
+        Event_LevelRestart?.Invoke();
+        gameOver = false;
+    }
 
     #region Event Reponses
     private void OnGameStart()
@@ -64,7 +74,17 @@ public class BB_GameManager : MonoBehaviour
     private void OnGameOver()
     {
         Debug.Log(this.name.ToString() + ": Game Over");
+        gameOver = true;
+    }
+
+    private void OnLevelLoaded()
+    {
+        if (!BB_SceneManager.Instance.IsMainMenu())
+        {
+            OnGameStart();
+        }
     }
 
     #endregion
+
 }
