@@ -21,6 +21,16 @@ public class BB_AssignmentManager : MonoBehaviour
         }
     }
 
+    public Camera cam;
+    public BB_NavMeshAgent selectedAgent;
+
+    public List<BB_NavMeshAgent> sceneAgents;
+    public List<BB_Task> sceneTasks;
+    private Dictionary<BB_NavMeshAgent, BB_Task> agent_task_dic =
+    new Dictionary<BB_NavMeshAgent, BB_Task>();
+    private Dictionary<BB_Task, BB_NavMeshAgent> task_agent_dic = 
+        new Dictionary<BB_Task, BB_NavMeshAgent>();
+
     // All Events must be here
     #region On Enable/Disable
     private void OnEnable()
@@ -29,17 +39,31 @@ public class BB_AssignmentManager : MonoBehaviour
 
         if (instance == null)
             instance = this;
+
+        foreach (BB_NavMeshAgent agent in sceneAgents)
+        {
+            agent.Event_AgentFinishedMoving += OnAgentFinishedMoving;
+            agent_task_dic.Add(agent, null);
+        }
+        foreach (BB_Task task in sceneTasks)
+        {
+            task.Event_TaskFinished += OnTaskFinished;
+            task_agent_dic.Add(task, null);
+        }
+
     }
 
     private void OnDisable()
     {
         Debug.Log(this.name.ToString() + ": triggered OnDisable");
+
+        foreach (BB_NavMeshAgent agent in sceneAgents)
+            agent.Event_AgentFinishedMoving -= OnAgentFinishedMoving;
+        foreach (BB_Task task in sceneTasks)
+            task.Event_TaskFinished -= OnTaskFinished;
     }
 
     #endregion
-
-    public Camera cam;
-    public BB_NavMeshAgent selectedAgent;
 
     void Update()
     {
@@ -65,21 +89,18 @@ public class BB_AssignmentManager : MonoBehaviour
                 if(AssignCondition(hit, out selectedTask))
                 {
                     selectedAgent.MoveToTask(selectedTask);
+                    AddToDic(selectedAgent, selectedTask);  
                 }
                 else
                 {
                     selectedAgent.MoveToPoint(hit.point);
+                    AddToDic(selectedAgent, null);
                 }
             }
         }
     }
 
-    public void AskForAssignment(BB_NavMeshAgent _agent, BB_Task _selectedTask)
-    {
-        Debug.Log(_agent.name + ": ask for assignment " + _selectedTask);
-        _selectedTask.Assign(_agent.TalentStats);
-    }
-
+    #region Conditions
     bool SelectionCondition(RaycastHit _hit, out BB_NavMeshAgent selectedAgent)
     {
         selectedAgent = null;
@@ -109,5 +130,48 @@ public class BB_AssignmentManager : MonoBehaviour
 
         selectedTask = task;
         return true;
+    }
+
+    #endregion
+
+    #region Event Responses
+    private void OnAgentFinishedMoving(BB_NavMeshAgent _agent)
+    {
+        BB_Task task = agent_task_dic[_agent];
+        if(task != null)
+        {
+            //testing
+            if (selectedAgent == _agent)
+                selectedAgent = null;
+
+            //Debug.Log(this.name + ": " + _agent.name + " starts " + currentTask);
+            AddToDic(task, _agent);
+
+            task.StartTask(_agent.TalentStats);
+            _agent.StartTask();
+        }
+    }
+    private void OnTaskFinished(BB_Task _task)
+    {
+        //Debug.Log(this.name + ": " + _task.name + " is finished");
+
+        BB_NavMeshAgent currentAgent = task_agent_dic[_task];
+        AddToDic(currentAgent, null);
+
+        _task.FinishTask();
+        currentAgent.FinishTask();
+    }
+
+    #endregion
+
+    private void AddToDic(BB_Task _task, BB_NavMeshAgent _agent)
+    {
+        task_agent_dic.Remove(_task);
+        task_agent_dic.Add(_task, _agent);
+    }
+    private void AddToDic(BB_NavMeshAgent _agent, BB_Task _task)
+    {
+        agent_task_dic.Remove(_agent);
+        agent_task_dic.Add(_agent, _task);
     }
 }

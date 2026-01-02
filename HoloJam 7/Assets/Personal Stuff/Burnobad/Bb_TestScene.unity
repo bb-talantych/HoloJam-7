@@ -883,6 +883,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 507827055}
   selectedAgent: {fileID: 0}
+  sceneAgents:
+  - {fileID: 115264573}
+  - {fileID: 1421869378}
+  sceneTasks:
+  - {fileID: 2031597347}
 --- !u!4 &510445955
 Transform:
   m_ObjectHideFlags: 0

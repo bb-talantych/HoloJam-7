@@ -21,7 +21,8 @@ public class BB_NavMeshAgent : MonoBehaviour
     { get; private set; }
     private bool isMoving;
     private NavMeshAgent agent;
-    private BB_Task potentialTask;
+
+    public event Action<BB_NavMeshAgent> Event_AgentFinishedMoving;
 
     private void OnEnable()
     {
@@ -30,7 +31,6 @@ public class BB_NavMeshAgent : MonoBehaviour
 
         IsAvailable = true;
         isMoving = false;
-        potentialTask = null;
 
         // testing
         stats = new Stats(-3, 3);
@@ -41,36 +41,38 @@ public class BB_NavMeshAgent : MonoBehaviour
         if (FinishedMovingCondition())
         {
             isMoving = false;
-            Debug.Log("Finished Moving");
-            
-            if(potentialTask != null)
-            {
-                BB_AssignmentManager.Instance.AskForAssignment(this, potentialTask);
-            }
+            //Debug.Log(this.name + ": finished moving");
+
+            Event_AgentFinishedMoving?.Invoke(this);
         }
     }
 
     public void MoveToPoint(Vector3 _destination)
     {
-        Debug.Log(this.name + ": moves to point");
+        //Debug.Log(this.name + ": moves to point");
 
         isMoving = true;
-        potentialTask = null;
         agent.SetDestination(_destination);
     }
     public void MoveToTask(BB_Task _task)
     {
         Debug.Log(this.name + ": moves to task");
-
-        isMoving = true;
-        potentialTask = _task;
-        agent.SetDestination(_task.MovePoint);
+        MoveToPoint(_task.MovePoint);
     }
-    public void AssignTask(Vector3 _destination)
+    public void StartTask()
     {
-        Debug.Log(this.name + ": assigned task");
+        Debug.Log(this.name + ": started task");
+
+        IsAvailable = false;
+    }
+    public void FinishTask()
+    {
+        Debug.Log(this.name + ": finished task");
+
+        IsAvailable = true;
     }
 
+    #region Conditions
     bool FinishedMovingCondition()
     {
         if (!isMoving)
@@ -84,5 +86,7 @@ public class BB_NavMeshAgent : MonoBehaviour
 
         return true;
     }
+
+    #endregion
 
 }

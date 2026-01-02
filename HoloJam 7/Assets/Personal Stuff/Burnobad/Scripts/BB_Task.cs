@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BB_CommonStuff;
 using UnityEngine.UI;
+using System;
 
 public class BB_Task : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class BB_Task : MonoBehaviour
     [SerializeField]
     private Slider progressSlider;
 
+    public event Action<BB_Task> Event_TaskFinished;
+
     private void OnEnable()
     {
         isAssigned = false;
@@ -35,14 +38,16 @@ public class BB_Task : MonoBehaviour
         statRequirements = new Stats(-3, 3);
     }
 
-    public void Assign(Stats _talentStats)
+    public void StartTask(Stats _talentStats)
     {
-        Debug.Log(this.name + " is assigned");
+        Debug.Log(this.name + ": agent assigned");
         isAssigned = true;
 
-        CompareStat(_talentStats);
+        float taskTime = GetTaskTime(_talentStats);
+        Debug.Log("taskTime: " + taskTime);
+        StartCoroutine(ITask(taskTime));
     }
-    private void CompareStat(Stats _talentStats)
+    private float GetTaskTime(Stats _talentStats)
     {
         float speedModifier = 1f;
         speedModifier += _talentStats.strenght >= statRequirements.strenght ? -0.1f : 0.1f;
@@ -51,19 +56,16 @@ public class BB_Task : MonoBehaviour
         speedModifier += _talentStats.charisma >= statRequirements.charisma ? -0.1f : 0.1f;
 
         float finalTime = timeToComplete * speedModifier;
-        StartTask(finalTime);
-
-        Debug.Log("modifierTimeToComplete: " + finalTime);
+        return finalTime;
     }
-    private void StartTask(float _timeToComplete)
+    public void FinishTask()
     {
-        isAssigned = true;
-        Debug.Log(this.name + ": task started");
-        StartCoroutine(ITask(_timeToComplete));
+        Debug.Log(this.name + ": task finished");
     }
 
     IEnumerator ITask(float _timeToComplete)
     {
+        //Debug.Log(this.name + ": task coroutine started");
         float timeElapsed = 0;
         while(timeElapsed < _timeToComplete)
         {
@@ -71,6 +73,8 @@ public class BB_Task : MonoBehaviour
             progressSlider.value = timeElapsed/_timeToComplete;
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log(this.name + ": task completed");
+        //Debug.Log(this.name + ": task coroutine completed");
+
+        Event_TaskFinished?.Invoke(this);
     }
 }
