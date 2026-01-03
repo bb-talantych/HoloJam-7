@@ -33,7 +33,6 @@ public class BB_AssignmentManager : MonoBehaviour
     public List<BB_Task> sceneTasks =
         new List<BB_Task>();
 
-
     //tracks which task the agent is currently assigned to
     private Dictionary<BB_NavMeshAgent, BB_Task> agent_task_dic =
         new Dictionary<BB_NavMeshAgent, BB_Task>();

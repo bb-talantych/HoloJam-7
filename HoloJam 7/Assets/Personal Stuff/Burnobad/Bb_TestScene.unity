@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 115264574}
   - component: {fileID: 115264577}
   - component: {fileID: 115264573}
+  - component: {fileID: 115264578}
   m_Layer: 9
   m_Name: Kronii Test
   m_TagString: Untagged
@@ -647,12 +648,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a38f55fa9304bfa4a8466681d005bdab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c51e296323a10bd4788c7b17363d7006, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -694,6 +695,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9, y: 9, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &115264578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115264572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineSize: 0.015
+  OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: -6465566751694194690, guid: d13f6618a781b2f47aa75103407b8013, type: 3}
 --- !u!1 &128167780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,8 +2480,9 @@ GameObject:
   - component: {fileID: 1421869380}
   - component: {fileID: 1421869379}
   - component: {fileID: 1421869378}
+  - component: {fileID: 1421869383}
   m_Layer: 9
-  m_Name: Bae Test
+  m_Name: Mumei Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2571,12 +2589,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2772576a84aa6b74e959238285335950, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df9dfc647343236409c4dafa1f66b2dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -2597,6 +2615,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1421869383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421869377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineSize: 0.015
+  OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: -6465566751694194690, guid: d13f6618a781b2f47aa75103407b8013, type: 3}
 --- !u!1 &1476432247
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,6 +2900,7 @@ GameObject:
   - component: {fileID: 1540361840}
   - component: {fileID: 1540361839}
   - component: {fileID: 1540361838}
+  - component: {fileID: 1540361843}
   m_Layer: 0
   m_Name: Test Task (1)
   m_TagString: Task
@@ -2981,6 +3016,22 @@ Transform:
   - {fileID: 488644111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1540361843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540361837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineSize: 0.3
+  OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: -6465566751694194690, guid: d13f6618a781b2f47aa75103407b8013, type: 3}
 --- !u!1 &1554410189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3305,6 +3356,7 @@ GameObject:
   - component: {fileID: 1820185925}
   - component: {fileID: 1820185924}
   - component: {fileID: 1820185923}
+  - component: {fileID: 1820185928}
   m_Layer: 0
   m_Name: Test Task (2)
   m_TagString: Task
@@ -3374,6 +3426,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 330e676e09209f646abcb3c85ff6874f, type: 2}
+  - {fileID: 2100000, guid: 330e676e09209f646abcb3c85ff6874f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3420,6 +3473,22 @@ Transform:
   - {fileID: 203796632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 54.35, z: 0}
+--- !u!114 &1820185928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820185922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineSize: 0.3
+  OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: -6465566751694194690, guid: d13f6618a781b2f47aa75103407b8013, type: 3}
 --- !u!1 &1928857330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,6 +3838,7 @@ GameObject:
   - component: {fileID: 2031597344}
   - component: {fileID: 2031597343}
   - component: {fileID: 2031597347}
+  - component: {fileID: 2031597348}
   m_Layer: 0
   m_Name: Test Task
   m_TagString: Task
@@ -3855,7 +3925,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031597342}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.20705797, z: 0, w: 0.97832876}
   m_LocalPosition: {x: -2.09, y: 0.48, z: 2.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3863,7 +3933,7 @@ Transform:
   - {fileID: 1250073687}
   - {fileID: 108081622}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 23.9, z: 0}
 --- !u!114 &2031597347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3884,6 +3954,22 @@ MonoBehaviour:
     intellect: 0
     charisma: 0
   progressSlider: {fileID: 1967275799}
+--- !u!114 &2031597348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031597342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OutlineSize: 0.3
+  OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: -6465566751694194690, guid: d13f6618a781b2f47aa75103407b8013, type: 3}
 --- !u!1 &2099694838
 GameObject:
   m_ObjectHideFlags: 0
