@@ -7,7 +7,9 @@ public class BB_AddOutline : MonoBehaviour
     [Range(0f, 1f), SerializeField]
     private float OutlineSize = 0.015f;
     [SerializeField]
-    private Color OutlineColor = Color.black;
+    private Color hoverColor = Color.black;
+    [SerializeField]
+    private Color selectedColor = Color.white;
 
     [HideInInspector]
     public Shader outlineShader_3d;
@@ -19,8 +21,26 @@ public class BB_AddOutline : MonoBehaviour
     private MeshRenderer mshRenderer;
     private SpriteRenderer sprRenderer;
 
+    private BB_Task task;
+    private BB_NavMeshAgent agent;
+
+    private BB_AssignmentManager assignmentManager;
+    private bool forceOutline;
+    private bool mouseOver;
+
+    #region On Enable/Disable
     private void OnEnable()
     {
+        if(task == null)
+            TryGetComponent<BB_Task>(out task);
+        if(task != null)
+        {
+            task.Event_TaskAssigned += OnTaskAssigned;
+        }
+
+        if (agent == null)
+            TryGetComponent<BB_NavMeshAgent>(out agent);
+
         // intialize one of the renderers
         if (!HasRenderer()) 
         {
@@ -48,27 +68,76 @@ public class BB_AddOutline : MonoBehaviour
                 sprRenderer.material = outlineMaterial;
             }
         }
+
+        forceOutline = false;
+        mouseOver = false;
     }
 
+    private void OnDisable()
+    {
+        if (task != null)
+        {
+            task.Event_TaskAssigned -= OnTaskAssigned;
+        }
+        if (agent != null)
+        {
+            if(assignmentManager != null)
+            {
+                assignmentManager.Event_AgentSelected -= OnAgentSelected;
+                assignmentManager.Event_AgentFinishedTask -= OnAgentFinishedTask;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        assignmentManager = BB_AssignmentManager.Instance;
+        if (agent != null)
+        {
+            if (assignmentManager != null)
+            {
+                assignmentManager.Event_AgentSelected += OnAgentSelected;
+                assignmentManager.Event_AgentFinishedTask += OnAgentFinishedTask;
+            }
+        }
+    }
+
+    #endregion
     private void OnMouseEnter()
     {
-        if (outlineMaterial != null)
+        mouseOver = true;
+        if (EnableOutlinesCondition())
         {
-            outlineMaterial.SetFloat("_Thickness", OutlineSize);
-            outlineMaterial.SetColor("_OutlineColor", OutlineColor);
-            outlineMaterial.EnableKeyword("OUTLINE_ON");
+            if(agent != null && assignmentManager.SelectedAgent != agent)
+            {
+                EnableOutlines(hoverColor);
+            }
+            else
+            {
+                EnableOutlines(selectedColor);
+            }
         }
     }
 
     private void OnMouseExit()
     {
-        if (outlineMaterial != null)
-        {
-            outlineMaterial.DisableKeyword("OUTLINE_ON");
-        }
+        mouseOver = false;
+        if (DisableOutlinesCondition())
+            DisableOutlines();
     }
 
-    #region Local bools and conditions
+    void EnableOutlines(Color _outlineColor)
+    {
+        outlineMaterial.SetFloat("_Thickness", OutlineSize);
+        outlineMaterial.SetColor("_OutlineColor", _outlineColor);
+        outlineMaterial.EnableKeyword("OUTLINE_ON");
+    }
+    void DisableOutlines()
+    {
+        outlineMaterial.DisableKeyword("OUTLINE_ON");
+    }
+
+    #region Bools and conditions
     bool HasRenderer()
     {
         if (mshRenderer == null && sprRenderer == null)
@@ -82,6 +151,70 @@ public class BB_AddOutline : MonoBehaviour
             return false;
 
         return true;
+    }
+
+    bool EnableOutlinesCondition()
+    {
+        if (outlineMaterial == null)
+            return false;
+        if(forceOutline)
+            return true;
+
+        if(task != null)
+        {
+            if(!task.IsAvailable)
+                return false;
+            if (BB_AssignmentManager.Instance.SelectedAgent == null)
+                return false;
+        }
+        
+        if(agent != null)
+        {
+            if (!agent.IsAvailable)
+                return false;
+        }
+
+        return true;
+    }
+    bool DisableOutlinesCondition()
+    {
+        if (outlineMaterial == null)
+            return false;
+        if (forceOutline)
+            return false;
+
+        return true;
+    }
+
+    #endregion
+
+    #region For Events
+    void OnTaskAssigned(BB_Task _task)
+    {
+        if (task == _task) 
+        {
+            forceOutline = false;
+            DisableOutlines();
+        }
+    }
+    void OnAgentSelected(BB_NavMeshAgent _agent)
+    {
+        forceOutline = agent == _agent;
+        if(forceOutline)
+        {
+            EnableOutlines(selectedColor);
+        }
+        else
+        {
+            DisableOutlines();
+        }
+    }
+    void OnAgentFinishedTask(BB_NavMeshAgent _agent)
+    {
+        if(agent == _agent && mouseOver)
+        {
+            EnableOutlines(hoverColor);
+        }
     }
 
     #endregion

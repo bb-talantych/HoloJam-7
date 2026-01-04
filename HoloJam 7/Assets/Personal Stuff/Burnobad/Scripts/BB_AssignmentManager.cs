@@ -7,8 +7,6 @@ using UnityEngine.AI;
 
 public class BB_AssignmentManager : MonoBehaviour
 {
-    public GameObject tempWinScreen;
-
     private static BB_AssignmentManager instance;
     public static BB_AssignmentManager Instance
     {
@@ -25,33 +23,36 @@ public class BB_AssignmentManager : MonoBehaviour
         }
     }
 
-    public Camera cam;
-    public BB_NavMeshAgent selectedAgent;
-
     public List<BB_NavMeshAgent> sceneAgents =
-        new List<BB_NavMeshAgent>();
+    new List<BB_NavMeshAgent>();
     public List<BB_Task> sceneTasks =
         new List<BB_Task>();
+
+    public Camera cam;
+    public BB_NavMeshAgent SelectedAgent
+    { get; private set; }
 
     //tracks which task the agent is currently assigned to
     private Dictionary<BB_NavMeshAgent, BB_Task> agent_task_dic =
         new Dictionary<BB_NavMeshAgent, BB_Task>();
     //tracks which agent started working on the task
-    private Dictionary<BB_Task, BB_NavMeshAgent> task_agent_dic = 
+    private Dictionary<BB_Task, BB_NavMeshAgent> task_agent_dic =
         new Dictionary<BB_Task, BB_NavMeshAgent>();
     //tracks the completion of tasks
     private Dictionary<BB_Task, bool> task_completion_dic =
        new Dictionary<BB_Task, bool>();
 
     public event Action Event_LevelComplete;
+    public event Action<BB_NavMeshAgent> Event_AgentSelected;
+    public event Action<BB_NavMeshAgent> Event_AgentFinishedTask;
 
-    // All Events must be here
+    //testing
+    public GameObject tempWinScreen;
+
     #region On Enable/Disable
     private void OnEnable()
     {
         instance = this;
-
-        tempWinScreen.SetActive(false);
 
         foreach (BB_NavMeshAgent agent in sceneAgents)
         {
@@ -62,6 +63,9 @@ public class BB_AssignmentManager : MonoBehaviour
             task.Event_TaskAssigned += OnTaskAssigned;
             task.Event_TaskFinished += OnTaskFinished;
         }
+
+        //testing
+        tempWinScreen.SetActive(false);
     }
 
     private void OnDisable()
@@ -74,7 +78,7 @@ public class BB_AssignmentManager : MonoBehaviour
         }
         foreach (BB_Task task in sceneTasks)
         {
-            task.Event_TaskAssigned += OnTaskAssigned;
+            task.Event_TaskAssigned -= OnTaskAssigned;
             task.Event_TaskFinished -= OnTaskFinished;
         }
     }
@@ -90,11 +94,18 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                SelectionCondition(hit, out selectedAgent);
+                if(SelectionCondition(hit, out BB_NavMeshAgent agent))
+                {
+                    SelectAgent(agent);
+                }
+                else
+                {
+                    SelectAgent(null);
+                }
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && selectedAgent != null)
+        if (Input.GetMouseButtonDown(1) && SelectedAgent != null)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -102,23 +113,28 @@ public class BB_AssignmentManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 BB_Task selectedTask;
-                if(AssignCondition(hit, out selectedTask))
+                if (AssignCondition(hit, out selectedTask))
                 {
-                    selectedAgent.MoveToTask(selectedTask);
-                    OverwriteDic(selectedAgent, selectedTask);  
+                    SelectedAgent.MoveToTask(selectedTask);
+                    OverwriteDic(SelectedAgent, selectedTask);
                 }
                 else
                 {
-                    selectedAgent.MoveToPoint(hit.point);
-                    OverwriteDic(selectedAgent, null);
+                    SelectedAgent.MoveToPoint(hit.point);
+                    OverwriteDic(SelectedAgent, null);
                 }
             }
         }
     }
 
+    void SelectAgent(BB_NavMeshAgent _agent)
+    {
+        SelectedAgent = _agent;
+        Event_AgentSelected?.Invoke(SelectedAgent);
+    }
     void CheckLevelComplete()
     {
-        if(LevelCompleteCondition())
+        if (LevelCompleteCondition())
         {
             Debug.Log(this.name + ": Level Complete");
             //Event_LevelComplete?.Invoke();
@@ -127,19 +143,19 @@ public class BB_AssignmentManager : MonoBehaviour
     }
 
     #region Conditions
-    bool SelectionCondition(RaycastHit _hit, out BB_NavMeshAgent selectedAgent)
+    bool SelectionCondition(RaycastHit _hit, out BB_NavMeshAgent agent)
     {
-        selectedAgent = null;
+        agent = null;
         if (_hit.collider.gameObject.layer != LayerMask.NameToLayer("characters"))
             return false;
 
         BB_NavMeshAgent hitAgent = _hit.collider.gameObject.GetComponent<BB_NavMeshAgent>();
         if (hitAgent == null)
             return false;
-        if(!hitAgent.IsAvailable)
+        if (!hitAgent.IsAvailable)
             return false;
 
-        selectedAgent = hitAgent;
+        agent = hitAgent;
         return true;
     }
     bool AssignCondition(RaycastHit _hit, out BB_Task selectedTask)
@@ -150,8 +166,8 @@ public class BB_AssignmentManager : MonoBehaviour
 
         BB_Task task = _hit.collider.gameObject.GetComponent<BB_Task>();
         if (task == null)
-            return false; 
-        if(task.isAssigned)
+            return false;
+        if (!task.IsAvailable)
             return false;
 
         selectedTask = task;
@@ -159,10 +175,11 @@ public class BB_AssignmentManager : MonoBehaviour
     }
     bool StoppingCondition(BB_Task _task, BB_NavMeshAgent _agent)
     {
-        BB_Task task;
-        if (!agent_task_dic.TryGetValue(_agent, out task))
+        if (!agent_task_dic.ContainsKey(_agent))
+        {
             return false;
-
+        }
+        BB_Task task = agent_task_dic[_agent];
         if (task_agent_dic[_task] != _agent && _task == task)
         {
             return true;
@@ -172,7 +189,7 @@ public class BB_AssignmentManager : MonoBehaviour
     }
     bool LevelCompleteCondition()
     {
-        if(task_completion_dic.Count != sceneTasks.Count)
+        if (task_completion_dic.Count != sceneTasks.Count)
             return false;
 
         foreach (BB_Task task in sceneTasks)
@@ -187,17 +204,21 @@ public class BB_AssignmentManager : MonoBehaviour
     }
 
     #endregion
-
     #region Event Responses
 
     private void OnAgentFinishedMoving(BB_NavMeshAgent _agent)
     {
-        BB_Task task = agent_task_dic[_agent];
-        if(task != null)
+        BB_Task task = null;
+
+        if(agent_task_dic.ContainsKey(_agent))
+        {
+            task = agent_task_dic[_agent];
+        }
+        if (task != null)
         {
             //testing
-            if (selectedAgent == _agent)
-                selectedAgent = null;
+            if (SelectedAgent == _agent)
+                SelectAgent(null);
 
             //Debug.Log(this.name + ": " + _agent.name + " starts " + currentTask);
             OverwriteDic(task, _agent);
@@ -215,7 +236,7 @@ public class BB_AssignmentManager : MonoBehaviour
             {
                 Debug.Log(this.name + ": " + agent.name + " will stop moving");
                 agent.StopMoving();
-                OverwriteDic(selectedAgent, null);
+                OverwriteDic(agent, null);
             }
         }
     }
@@ -229,12 +250,13 @@ public class BB_AssignmentManager : MonoBehaviour
 
         _task.FinishTask();
         agent.FinishTask();
+        Event_AgentFinishedTask?.Invoke(agent);
 
         CheckLevelComplete();
     }
 
     #endregion
-
+    #region Dictionary Stuff
     private void OverwriteDic(BB_Task _task, BB_NavMeshAgent _agent)
     {
         if (task_agent_dic.ContainsKey(_task))
@@ -245,7 +267,7 @@ public class BB_AssignmentManager : MonoBehaviour
     }
     private void OverwriteDic(BB_NavMeshAgent _agent, BB_Task _task)
     {
-        if(agent_task_dic.ContainsKey(_agent))
+        if (agent_task_dic.ContainsKey(_agent))
         {
             agent_task_dic.Remove(_agent);
         }
@@ -253,10 +275,12 @@ public class BB_AssignmentManager : MonoBehaviour
     }
     private void OverwriteDic(BB_Task _task, bool _completed)
     {
-        if(task_agent_dic.ContainsKey(_task))
+        if (task_agent_dic.ContainsKey(_task))
         {
             task_completion_dic.Remove(_task);
         }
         task_completion_dic.Add(_task, _completed);
     }
+
+    #endregion
 }

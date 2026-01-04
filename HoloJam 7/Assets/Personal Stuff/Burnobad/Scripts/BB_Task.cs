@@ -12,7 +12,7 @@ public class BB_Task : MonoBehaviour
 
     public Vector3 MovePoint
     { get { return movePointHolder.transform.position; } }
-    public bool isAssigned
+    public bool IsAvailable
     {
         get;
         private set;
@@ -31,7 +31,7 @@ public class BB_Task : MonoBehaviour
 
     private void OnEnable()
     {
-        isAssigned = false;
+        IsAvailable = true;
 
         progressSlider.value = 0;
 
@@ -42,11 +42,11 @@ public class BB_Task : MonoBehaviour
     public void StartTask(Stats _talentStats)
     {
         Debug.Log(this.name + ": agent assigned");
-        isAssigned = true;
+        IsAvailable = false;
         Event_TaskAssigned?.Invoke(this);
 
         float taskTime = GetTaskTime(_talentStats);
-        Debug.Log("taskTime: " + taskTime);
+        //Debug.Log("taskTime: " + taskTime);
         StartCoroutine(ITask(taskTime));
     }
     private float GetTaskTime(Stats _talentStats)
