@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -25,30 +26,29 @@ public class BB_SceneManager : MonoBehaviour
     [SerializeField]
     private string mainMenuScene;
 
-
     private string currentScene;
-    private int currentSceneIndex;
-    [SerializeField]
-    private List<string> levelList;
+
+    public static event Action Event_LevelLoaded;
 
     #region On Enable/Disable
     private void OnEnable()
     {
-        Debug.Log(this.name.ToString() + ": triggered OnEnable");
+        //Debug.Log(this.name + ": triggered OnEnable");
+
+        if (instance == null)
+            instance = this;
+
+        BB_GameManager.Event_LevelRestart += OnLevelRestart;
     }
 
     private void OnDisable()
     {
-        Debug.Log(this.name.ToString() + ": triggered OnDisable");
+        //Debug.Log(this.name + ": triggered OnDisable");
+        BB_GameManager.Event_LevelRestart -= OnLevelRestart;
     }
 
     #endregion
 
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-    }
     private void Start()
     {
         LoadScene(mainMenuScene);
@@ -60,10 +60,6 @@ public class BB_SceneManager : MonoBehaviour
             StartCoroutine(ILoadScene(_sceneToLoad));
         else
             Debug.LogError(this.name.ToString() + ": LoadScene, no _sceneToLoad");
-    }
-    void ReloadScene()
-    {
-        LoadScene(currentScene);
     }
 
     IEnumerator ILoadScene(string _sceneToLoad)
@@ -95,22 +91,29 @@ public class BB_SceneManager : MonoBehaviour
         }
 
         currentScene = _sceneToLoad;
+        Event_LevelLoaded?.Invoke();
     }
 
     #region Public Methodes
     public void LoadLevel(string _levelName, string _callerName)
     {
-        Debug.Log(this.name.ToString() + ": " + _callerName + " called LoadLevel");
+        Debug.Log(this.name + ": " + _callerName + " called LoadLevel");
 
         LoadScene(_levelName);
     }
 
+    public bool IsMainMenu()
+    {
+        return currentScene == mainMenuScene;
+    }
+
     #endregion
     #region Event Reponses
-    //Testing
-    void StartButton()
+
+    private void OnLevelRestart()
     {
-        LoadScene(levelList[0]);
+        Debug.Log(this.name + ": on game restart");
+        LoadScene(currentScene);
     }
 
     #endregion
