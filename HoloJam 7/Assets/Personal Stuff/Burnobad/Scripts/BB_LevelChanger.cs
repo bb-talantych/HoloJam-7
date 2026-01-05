@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BB_Scenes;
 
 public class BB_LevelChanger : MonoBehaviour
 {
-    [SerializeField]
-    private string levelName;
+    public BB_GameScenes.GameScenes scene = BB_GameScenes.GameScenes.BB_TestScene;
 
     public void CallLevelChange()
     {
-        BB_SceneManager.Instance.LoadLevel(levelName, this.name);
+       BB_SceneManager.Instance.LoadLevel(scene, this.name);
     }
 }

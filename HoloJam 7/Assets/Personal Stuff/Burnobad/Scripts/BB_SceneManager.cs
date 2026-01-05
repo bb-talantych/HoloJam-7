@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using BB_Scenes;
 
 public class BB_SceneManager : MonoBehaviour
 {
@@ -23,12 +24,9 @@ public class BB_SceneManager : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private string mainMenuScene;
+    private BB_GameScenes.GameScenes currentScene = BB_GameScenes.GameScenes.NoScene;
 
-    private string currentScene;
-
-    public static event Action Event_LevelLoaded;
+    public static event Action<BB_GameScenes.GameScenes> Event_LevelLoaded;
 
     #region On Enable/Disable
     private void OnEnable()
@@ -51,24 +49,29 @@ public class BB_SceneManager : MonoBehaviour
 
     private void Start()
     {
-        LoadScene(mainMenuScene);
+        LoadScene(BB_GameScenes.GameScenes.MainMenu);
     }
 
-    void LoadScene(string _sceneToLoad)
+    void LoadScene(BB_GameScenes.GameScenes _sceneToLoad)
     {
-        if (_sceneToLoad != null)
-            StartCoroutine(ILoadScene(_sceneToLoad));
-        else
-            Debug.LogError(this.name.ToString() + ": LoadScene, no _sceneToLoad");
+        StartCoroutine(ILoadScene(_sceneToLoad));
     }
 
-    IEnumerator ILoadScene(string _sceneToLoad)
+    IEnumerator ILoadScene(BB_GameScenes.GameScenes _sceneToLoad)
     {
-        // Start Unloading previous Scene
-        if (currentScene != null)
+        if(_sceneToLoad == BB_GameScenes.GameScenes.NoScene)
         {
+            Debug.LogError(this.name + ": _sceneToLoad was NoScene");
+            Debug.LogError(this.name + ": _sceneToLoad changed to BB_TestScene");
+            _sceneToLoad = BB_GameScenes.GameScenes.BB_TestScene;
+        }
+
+        // Start Unloading previous Scene
+        if (currentScene != BB_GameScenes.GameScenes.NoScene)
+        {
+            string currentSceneName = BB_GameScenes.GetScene(currentScene);
             AsyncOperation unloadSceneAsync =
-                SceneManager.UnloadSceneAsync(currentScene);
+                SceneManager.UnloadSceneAsync(currentSceneName);
 
             while (!unloadSceneAsync.isDone)
             {
@@ -77,8 +80,9 @@ public class BB_SceneManager : MonoBehaviour
         }
 
         // Start Loading New Scene
+        string sceneToLoadName = BB_GameScenes.GetScene(_sceneToLoad);
         AsyncOperation loadSceneAsync =
-            SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(sceneToLoadName, LoadSceneMode.Additive);
 
         if (loadSceneAsync == null)
         {
@@ -91,20 +95,15 @@ public class BB_SceneManager : MonoBehaviour
         }
 
         currentScene = _sceneToLoad;
-        Event_LevelLoaded?.Invoke();
+        Event_LevelLoaded?.Invoke(currentScene);
     }
 
     #region Public Methodes
-    public void LoadLevel(string _levelName, string _callerName)
+    public void LoadLevel(BB_GameScenes.GameScenes _scene, string _callerName)
     {
         Debug.Log(this.name + ": " + _callerName + " called LoadLevel");
 
-        LoadScene(_levelName);
-    }
-
-    public bool IsMainMenu()
-    {
-        return currentScene == mainMenuScene;
+        LoadScene(_scene);
     }
 
     #endregion

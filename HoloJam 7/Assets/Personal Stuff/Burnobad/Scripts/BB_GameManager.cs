@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using BB_Scenes;
 
 public class BB_GameManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class BB_GameManager : MonoBehaviour
 
     bool gameOver = false;
 
+    //testing
+    public GameObject tempWinScreen;
+    public GameObject tempLoseScreen;
+
     #region Events
 
     public static event Action Event_GameStart;
@@ -41,12 +46,17 @@ public class BB_GameManager : MonoBehaviour
             instance = this;
 
         BB_SceneManager.Event_LevelLoaded += OnLevelLoaded;
+        BB_AssignmentManager.Event_LevelCompleted += OnLevelCompleted;
+        BB_LevelTimer.Event_LevelTimerEnded += OnLevelTimerEnded;
     }
 
     private void OnDisable() 
     {
         //Debug.Log(this.name + ": triggered OnDisable");
+
         BB_SceneManager.Event_LevelLoaded -= OnLevelLoaded;
+        BB_AssignmentManager.Event_LevelCompleted -= OnLevelCompleted;
+        BB_LevelTimer.Event_LevelTimerEnded -= OnLevelTimerEnded;
     }
 
     #endregion
@@ -63,6 +73,29 @@ public class BB_GameManager : MonoBehaviour
     {
         Event_LevelRestart?.Invoke();
         gameOver = false;
+        Time.timeScale = 1;
+
+        tempWinScreen.SetActive(false);
+        tempLoseScreen.SetActive(false);
+    }
+    void GameOver()
+    {
+        Debug.Log(this.name.ToString() + ": Game Over");
+        gameOver = true;
+
+        tempWinScreen.SetActive(false);
+        tempLoseScreen.SetActive(true);
+        Time.timeScale = 0;
+
+        Event_GameOver?.Invoke();
+    }
+    void LevelCompleted()
+    {
+        Debug.Log(this.name.ToString() + ": Level Completed");
+        gameOver = false;
+
+        tempWinScreen.SetActive(true);
+        tempLoseScreen.SetActive(false);
     }
 
     #region Event Reponses
@@ -70,19 +103,20 @@ public class BB_GameManager : MonoBehaviour
     {
         Debug.Log(this.name.ToString() + ": Game Start");
     }
-
-    private void OnGameOver()
+    private void OnLevelLoaded(BB_GameScenes.GameScenes _scene)
     {
-        Debug.Log(this.name.ToString() + ": Game Over");
-        gameOver = true;
-    }
-
-    private void OnLevelLoaded()
-    {
-        if (!BB_SceneManager.Instance.IsMainMenu())
+        if (_scene != BB_GameScenes.GameScenes.MainMenu)
         {
             OnGameStart();
         }
+    }
+    private void OnLevelCompleted()
+    {
+        LevelCompleted();
+    }
+    private void OnLevelTimerEnded()
+    {
+        GameOver();
     }
 
     #endregion

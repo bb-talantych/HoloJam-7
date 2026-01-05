@@ -42,12 +42,9 @@ public class BB_AssignmentManager : MonoBehaviour
     private Dictionary<BB_Task, bool> task_completion_dic =
        new Dictionary<BB_Task, bool>();
 
-    public event Action Event_LevelComplete;
+    public static event Action Event_LevelCompleted;
     public event Action<BB_NavMeshAgent> Event_AgentSelected;
     public event Action<BB_NavMeshAgent> Event_AgentFinishedTask;
-
-    //testing
-    public GameObject tempWinScreen;
 
     #region On Enable/Disable
     private void OnEnable()
@@ -63,9 +60,6 @@ public class BB_AssignmentManager : MonoBehaviour
             task.Event_TaskAssigned += OnTaskAssigned;
             task.Event_TaskFinished += OnTaskFinished;
         }
-
-        //testing
-        tempWinScreen.SetActive(false);
     }
 
     private void OnDisable()
@@ -137,8 +131,7 @@ public class BB_AssignmentManager : MonoBehaviour
         if (LevelCompleteCondition())
         {
             Debug.Log(this.name + ": Level Complete");
-            //Event_LevelComplete?.Invoke();
-            tempWinScreen.SetActive(true);
+            Event_LevelCompleted?.Invoke();
         }
     }
 

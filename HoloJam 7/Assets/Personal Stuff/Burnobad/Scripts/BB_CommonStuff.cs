@@ -23,3 +23,41 @@ namespace BB_CommonStuff
         }
     }
 }
+
+namespace BB_Scenes
+{
+    public static class BB_GameScenes
+    {
+        public enum GameScenes
+        {
+            NoScene,
+            MainMenu,
+            BB_TestScene
+        }
+
+        public const string nonScene = "";
+        public const string mainMenuScene = "BB_MainMenu";
+        public const string bb_testingScene = "BB_TestScene";
+
+        public static string GetScene(GameScenes _selectedScene)
+        {
+            string scene = bb_testingScene;
+
+            switch (_selectedScene)
+            {
+                case GameScenes.NoScene:
+                    scene = nonScene;
+                    break;
+                case GameScenes.MainMenu:
+                    scene = mainMenuScene;
+                    break;
+                case GameScenes.BB_TestScene:
+                    scene = bb_testingScene;
+                    break;
+            }
+
+            return scene;
+        }
+    }
+}
+

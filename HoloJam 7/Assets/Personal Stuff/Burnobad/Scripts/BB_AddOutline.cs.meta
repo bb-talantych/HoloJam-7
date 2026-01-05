@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
-  - outlineShader_2d: {fileID: -6465566751694194690, guid: d13f6618a781b2f47aa75103407b8013, type: 3}
+  - outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
