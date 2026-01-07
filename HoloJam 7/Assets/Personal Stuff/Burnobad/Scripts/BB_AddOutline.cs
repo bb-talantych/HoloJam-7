@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -189,9 +190,10 @@ public class BB_AddOutline : MonoBehaviour
     #endregion
 
     #region For Events
-    void OnTaskAssigned(BB_Task _task)
+    void OnTaskAssigned(object _sender, EventArgs e)
     {
-        if (task == _task) 
+        BB_Task assignedTask = (BB_Task)_sender;
+        if (task == assignedTask) 
         {
             forceOutline = false;
             DisableOutlines();

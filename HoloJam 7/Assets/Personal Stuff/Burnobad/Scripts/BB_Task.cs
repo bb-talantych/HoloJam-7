@@ -11,7 +11,18 @@ public class BB_Task : MonoBehaviour
     private GameObject movePointHolder;
 
     public Vector3 MovePoint
-    { get { return movePointHolder.transform.position; } }
+    { 
+        get 
+        { 
+            if(movePointHolder != null)
+                return movePointHolder.transform.position;
+            else
+            {
+                Debug.LogError(this.name + ": not movePointHolder");
+                return Vector3.zero;
+            }
+        }
+    }
     public bool IsAvailable
     {
         get;
@@ -24,10 +35,12 @@ public class BB_Task : MonoBehaviour
     private Stats statRequirements = default;
 
     [SerializeField]
+    private Canvas sliderCanvas;
+    [SerializeField]
     private Slider progressSlider;
 
-    public event Action<BB_Task> Event_TaskAssigned;
-    public event Action<BB_Task> Event_TaskFinished;
+    public event EventHandler Event_TaskAssigned;
+    public event EventHandler Event_TaskFinished;
 
     private void OnEnable()
     {
@@ -37,13 +50,20 @@ public class BB_Task : MonoBehaviour
 
         //testing
         statRequirements = new Stats(-3, 3);
+
+        sliderCanvas.enabled = false;
+        if (sliderCanvas != null)
+            sliderCanvas.transform.rotation = Quaternion.Euler(0, 0, 0);
+
     }
 
     public void StartTask(Stats _talentStats)
     {
         Debug.Log(this.name + ": agent assigned");
+
         IsAvailable = false;
-        Event_TaskAssigned?.Invoke(this);
+        sliderCanvas.enabled = true;
+        Event_TaskAssigned?.Invoke(this, EventArgs.Empty);
 
         float taskTime = GetTaskTime(_talentStats);
         //Debug.Log("taskTime: " + taskTime);
@@ -71,12 +91,13 @@ public class BB_Task : MonoBehaviour
         float timeElapsed = 0;
         while(timeElapsed < _timeToComplete)
         {
-            timeElapsed += Time.deltaTime;  
-            progressSlider.value = timeElapsed/_timeToComplete;
+            timeElapsed += Time.deltaTime;
+            if (progressSlider != null)
+                progressSlider.value = timeElapsed/_timeToComplete;
             yield return new WaitForEndOfFrame();
         }
         //Debug.Log(this.name + ": task coroutine completed");
 
-        Event_TaskFinished?.Invoke(this);
+        Event_TaskFinished?.Invoke(this, EventArgs.Empty);
     }
 }

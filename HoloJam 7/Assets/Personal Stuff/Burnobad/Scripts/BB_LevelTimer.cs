@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BB_LevelTimer : MonoBehaviour
 {
     [SerializeField]
     private float levelTime = 20;
+    [SerializeField]
+    private TMP_Text test;
 
     private float elapsedTime;
 
@@ -16,21 +19,19 @@ public class BB_LevelTimer : MonoBehaviour
 
     void OnEnable()
     {
+        BB_GameManager.Event_LevelStarted += StartLevelTimer;
         BB_AssignmentManager.Event_LevelCompleted += OnLevelCompleted;
     }
     private void OnDisable()
     {
+        BB_GameManager.Event_LevelStarted -= StartLevelTimer;
         BB_AssignmentManager.Event_LevelCompleted -= OnLevelCompleted;
     }
 
-    //testing
-    private void Start()
-    {
-        StartLevelTimer();
-    }
-    void StartLevelTimer()
+    public void StartLevelTimer()
     {
         timerCoroutine = StartCoroutine(ITimer());
+
     }
 
     IEnumerator ITimer()
@@ -39,6 +40,10 @@ public class BB_LevelTimer : MonoBehaviour
         while (elapsedTime < levelTime) 
         {
             elapsedTime += Time.deltaTime;
+
+            float time = levelTime - elapsedTime;
+            test.text = Mathf.FloorToInt(time).ToString();
+
             yield return new WaitForEndOfFrame();
         }
         //Debug.Log(this.name + ": timer finished");
@@ -46,7 +51,7 @@ public class BB_LevelTimer : MonoBehaviour
         yield return null;
     }
 
-    void OnLevelCompleted()
+    void OnLevelCompleted(object _sender, EventArgs e)
     {
         if(timerCoroutine != null)
         {

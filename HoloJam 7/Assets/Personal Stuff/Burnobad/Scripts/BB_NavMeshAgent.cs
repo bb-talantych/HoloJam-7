@@ -22,7 +22,7 @@ public class BB_NavMeshAgent : MonoBehaviour
     private bool isMoving;
     private NavMeshAgent agent;
 
-    public event Action<BB_NavMeshAgent> Event_AgentFinishedMoving;
+    public event EventHandler Event_AgentFinishedMoving;
 
     private void OnEnable()
     {
@@ -43,7 +43,7 @@ public class BB_NavMeshAgent : MonoBehaviour
             isMoving = false;
             //Debug.Log(this.name + ": finished moving");
 
-            Event_AgentFinishedMoving?.Invoke(this);
+            Event_AgentFinishedMoving?.Invoke(this, EventArgs.Empty);
         }
     }
 

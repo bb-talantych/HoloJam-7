@@ -42,7 +42,7 @@ public class BB_AssignmentManager : MonoBehaviour
     private Dictionary<BB_Task, bool> task_completion_dic =
        new Dictionary<BB_Task, bool>();
 
-    public static event Action Event_LevelCompleted;
+    public static event EventHandler Event_LevelCompleted;
     public event Action<BB_NavMeshAgent> Event_AgentSelected;
     public event Action<BB_NavMeshAgent> Event_AgentFinishedTask;
 
@@ -126,14 +126,6 @@ public class BB_AssignmentManager : MonoBehaviour
         SelectedAgent = _agent;
         Event_AgentSelected?.Invoke(SelectedAgent);
     }
-    void CheckLevelComplete()
-    {
-        if (LevelCompleteCondition())
-        {
-            Debug.Log(this.name + ": Level Complete");
-            Event_LevelCompleted?.Invoke();
-        }
-    }
 
     #region Conditions
     bool SelectionCondition(RaycastHit _hit, out BB_NavMeshAgent agent)
@@ -173,12 +165,16 @@ public class BB_AssignmentManager : MonoBehaviour
             return false;
         }
         BB_Task task = agent_task_dic[_agent];
-        if (task_agent_dic[_task] != _agent && _task == task)
+        if (_task != task)
         {
-            return true;
+            return false;
+        }
+        if (task_agent_dic[_task] == _agent)
+        {
+            return false;
         }
 
-        return false;
+        return true;
     }
     bool LevelCompleteCondition()
     {
@@ -198,34 +194,36 @@ public class BB_AssignmentManager : MonoBehaviour
 
     #endregion
     #region Event Responses
-
-    private void OnAgentFinishedMoving(BB_NavMeshAgent _agent)
+    private void OnAgentFinishedMoving(object _sender, EventArgs e)
     {
+        BB_NavMeshAgent agent = (BB_NavMeshAgent)_sender;
         BB_Task task = null;
 
-        if(agent_task_dic.ContainsKey(_agent))
+        if(agent_task_dic.ContainsKey(agent))
         {
-            task = agent_task_dic[_agent];
+            task = agent_task_dic[agent];
         }
         if (task != null)
         {
             //testing
-            if (SelectedAgent == _agent)
+            if (SelectedAgent == agent)
                 SelectAgent(null);
 
-            //Debug.Log(this.name + ": " + _agent.name + " starts " + currentTask);
-            OverwriteDic(task, _agent);
+            //Debug.Log(this.name + ": " + agent.name + " starts " + currentTask);
+            OverwriteDic(task, agent);
 
-            task.StartTask(_agent.TalentStats);
-            _agent.StartTask();
+            task.StartTask(agent.TalentStats);
+            agent.StartTask();
         }
     }
-    private void OnTaskAssigned(BB_Task _task)
+    private void OnTaskAssigned(object _sender, EventArgs e)
     {
-        //Debug.Log(this.name + ": " + _task.name + " is assigned");
+        //Debug.Log(this.name + ": " + task.name + " is assigned");
+
+        BB_Task task = (BB_Task)_sender;
         foreach (BB_NavMeshAgent agent in sceneAgents)
         {
-            if (StoppingCondition(_task, agent))
+            if (StoppingCondition(task, agent))
             {
                 Debug.Log(this.name + ": " + agent.name + " will stop moving");
                 agent.StopMoving();
@@ -233,19 +231,24 @@ public class BB_AssignmentManager : MonoBehaviour
             }
         }
     }
-    private void OnTaskFinished(BB_Task _task)
+    private void OnTaskFinished(object _sender, EventArgs e)
     {
-        //Debug.Log(this.name + ": " + _task.name + " is finished");
+        //Debug.Log(this.name + ": " + task.name + " is finished");
 
-        BB_NavMeshAgent agent = task_agent_dic[_task];
+        BB_Task task = (BB_Task)_sender;
+        BB_NavMeshAgent agent = task_agent_dic[task];
         OverwriteDic(agent, null);
-        OverwriteDic(_task, true);
+        OverwriteDic(task, true);
 
-        _task.FinishTask();
+        task.FinishTask();
         agent.FinishTask();
         Event_AgentFinishedTask?.Invoke(agent);
 
-        CheckLevelComplete();
+        if (LevelCompleteCondition())
+        {
+            Debug.Log(this.name + ": Level Complete");
+            Event_LevelCompleted?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     #endregion

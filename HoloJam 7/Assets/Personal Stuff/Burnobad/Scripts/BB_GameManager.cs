@@ -31,8 +31,8 @@ public class BB_GameManager : MonoBehaviour
 
     #region Events
 
-    public static event Action Event_GameStart;
     public static event Action Event_GameOver;
+    public static event Action Event_LevelStarted;
     public static event Action Event_LevelRestart;
 
     #endregion
@@ -89,14 +89,6 @@ public class BB_GameManager : MonoBehaviour
 
         Event_GameOver?.Invoke();
     }
-    void LevelCompleted()
-    {
-        Debug.Log(this.name.ToString() + ": Level Completed");
-        gameOver = false;
-
-        tempWinScreen.SetActive(true);
-        tempLoseScreen.SetActive(false);
-    }
 
     #region Event Reponses
     private void OnGameStart()
@@ -108,11 +100,17 @@ public class BB_GameManager : MonoBehaviour
         if (_scene != BB_GameScenes.GameScenes.MainMenu)
         {
             OnGameStart();
+            // testing
+            Event_LevelStarted?.Invoke();
         }
     }
-    private void OnLevelCompleted()
+    private void OnLevelCompleted(object _sender, EventArgs e)
     {
-        LevelCompleted();
+        Debug.Log(this.name.ToString() + ": Level Completed");
+        gameOver = false;
+
+        tempWinScreen.SetActive(true);
+        tempLoseScreen.SetActive(false);
     }
     private void OnLevelTimerEnded()
     {
