@@ -6,6 +6,7 @@ using UnityEngine.AI;
 using BB_CommonStuff;
 using UnityEngine.TextCore.Text;
 
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class BB_NavMeshAgent : MonoBehaviour
 {
     public Stats stats = default;
