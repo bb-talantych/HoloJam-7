@@ -39,6 +39,11 @@ public class BB_Task : MonoBehaviour
     [SerializeField]
     private Slider progressSlider;
 
+    [SerializeField]
+    private AudioSource sfxSource;
+    [SerializeField]
+    private AudioClip sfxClip;
+
     public event EventHandler Event_TaskAssigned;
     public event EventHandler Event_TaskFinished;
 
@@ -68,6 +73,14 @@ public class BB_Task : MonoBehaviour
         float taskTime = GetTaskTime(_talentStats);
         //Debug.Log("taskTime: " + taskTime);
         StartCoroutine(ITask(taskTime));
+
+
+        if (sfxSource != null && sfxClip != null)
+        {
+            sfxSource.loop = false;
+            sfxSource.clip = sfxClip;
+            sfxSource.Play();
+        }
     }
     private float GetTaskTime(Stats _talentStats)
     {

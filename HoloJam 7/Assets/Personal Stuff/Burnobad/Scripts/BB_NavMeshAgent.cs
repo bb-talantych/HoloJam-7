@@ -24,6 +24,14 @@ public class BB_NavMeshAgent : MonoBehaviour
 
     public event EventHandler Event_AgentFinishedMoving;
 
+    [SerializeField]
+    private Animator animator;
+
+    [SerializeField]
+    private AudioSource sfxSource;
+    [SerializeField]
+    private AudioClip agentSelectedClip;
+
     private void OnEnable()
     {
         if (agent == null)
@@ -44,6 +52,7 @@ public class BB_NavMeshAgent : MonoBehaviour
             //Debug.Log(this.name + ": finished moving");
 
             Event_AgentFinishedMoving?.Invoke(this, EventArgs.Empty);
+            animator.SetTrigger("Stopped");
         }
     }
 
@@ -53,6 +62,8 @@ public class BB_NavMeshAgent : MonoBehaviour
 
         isMoving = true;
         agent.SetDestination(_destination);
+
+        animator.SetTrigger("Moving");
     }
     public void MoveToTask(BB_Task _task)
     {
@@ -91,6 +102,26 @@ public class BB_NavMeshAgent : MonoBehaviour
 
         return true;
     }
+
+    #endregion
+
+    #region Event Responces
+
+    void OnAgentSelected(BB_NavMeshAgent _agent)
+    {
+        if(agent != _agent)
+        {
+            return;
+        }
+
+        if (sfxSource != null && agentSelectedClip != null)
+        {
+            sfxSource.loop = false;
+            sfxSource.clip = agentSelectedClip;
+            sfxSource.Play();
+        }
+    }
+
 
     #endregion
 

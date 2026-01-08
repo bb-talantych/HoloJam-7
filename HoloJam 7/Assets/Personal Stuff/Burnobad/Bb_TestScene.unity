@@ -567,6 +567,7 @@ GameObject:
   - component: {fileID: 115264577}
   - component: {fileID: 115264573}
   - component: {fileID: 115264578}
+  - component: {fileID: 115264579}
   m_Layer: 9
   m_Name: Kronii Test
   m_TagString: Untagged
@@ -591,6 +592,9 @@ MonoBehaviour:
     dexterity: 0
     intellect: 0
     charisma: 0
+  animator: {fileID: 115264579}
+  sfxSource: {fileID: 0}
+  agentSelectedClip: {fileID: 0}
 --- !u!195 &115264574
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -725,6 +729,28 @@ MonoBehaviour:
   selectedColor: {r: 0, g: 0.23921569, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+--- !u!95 &115264579
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115264572}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24ccd55276d16214f8d4405202861762, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &128167780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,6 +2419,7 @@ GameObject:
   - component: {fileID: 1421869381}
   - component: {fileID: 1421869380}
   - component: {fileID: 1421869379}
+  - component: {fileID: 1421869384}
   - component: {fileID: 1421869378}
   - component: {fileID: 1421869383}
   m_Layer: 9
@@ -2419,6 +2446,9 @@ MonoBehaviour:
     dexterity: 0
     intellect: 0
     charisma: 0
+  animator: {fileID: 1421869384}
+  sfxSource: {fileID: 0}
+  agentSelectedClip: {fileID: 0}
 --- !u!65 &1421869379
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2553,6 +2583,28 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 0.5280086, b: 0, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+--- !u!95 &1421869384
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421869377}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24ccd55276d16214f8d4405202861762, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1462262228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,6 +3081,8 @@ MonoBehaviour:
     charisma: 0
   sliderCanvas: {fileID: 488644114}
   progressSlider: {fileID: 596222050}
+  sfxSource: {fileID: 0}
+  sfxClip: {fileID: 0}
 --- !u!65 &1540361839
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3501,6 +3555,8 @@ MonoBehaviour:
     charisma: 0
   sliderCanvas: {fileID: 203796635}
   progressSlider: {fileID: 2135279690}
+  sfxSource: {fileID: 0}
+  sfxClip: {fileID: 0}
 --- !u!65 &1820185924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4087,6 +4143,8 @@ MonoBehaviour:
     charisma: 0
   sliderCanvas: {fileID: 108081625}
   progressSlider: {fileID: 1967275799}
+  sfxSource: {fileID: 0}
+  sfxClip: {fileID: 0}
 --- !u!114 &2031597348
 MonoBehaviour:
   m_ObjectHideFlags: 0
