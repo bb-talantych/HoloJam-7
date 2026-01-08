@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BB_CommonStuff;
+using BB_CommonLevelStuff;
 using UnityEngine.UI;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class BB_Task : MonoBehaviour
 {
     [SerializeField]
@@ -41,8 +42,7 @@ public class BB_Task : MonoBehaviour
 
     [SerializeField]
     private AudioSource sfxSource;
-    [SerializeField]
-    private AudioClip sfxClip;
+
 
     public event EventHandler Event_TaskAssigned;
     public event EventHandler Event_TaskFinished;
@@ -62,6 +62,10 @@ public class BB_Task : MonoBehaviour
 
     }
 
+    public void TaskSelected()
+    {
+        BB_CommonDataManager.instance.PlayClip(sfxSource, BB_CommonDataManager.instance.taskSelectedClips);
+    }
     public void StartTask(Stats _talentStats)
     {
         Debug.Log(this.name + ": agent assigned");
@@ -74,13 +78,6 @@ public class BB_Task : MonoBehaviour
         //Debug.Log("taskTime: " + taskTime);
         StartCoroutine(ITask(taskTime));
 
-
-        if (sfxSource != null && sfxClip != null)
-        {
-            sfxSource.loop = false;
-            sfxSource.clip = sfxClip;
-            sfxSource.Play();
-        }
     }
     private float GetTaskTime(Stats _talentStats)
     {
@@ -112,5 +109,6 @@ public class BB_Task : MonoBehaviour
         //Debug.Log(this.name + ": task coroutine completed");
 
         Event_TaskFinished?.Invoke(this, EventArgs.Empty);
+        BB_CommonDataManager.instance.PlayClip(sfxSource, BB_CommonDataManager.instance.taskCompleteClips);
     }
 }

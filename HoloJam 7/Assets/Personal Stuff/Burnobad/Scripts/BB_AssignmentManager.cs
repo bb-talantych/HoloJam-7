@@ -111,6 +111,7 @@ public class BB_AssignmentManager : MonoBehaviour
                 {
                     SelectedAgent.MoveToTask(selectedTask);
                     OverwriteDic(SelectedAgent, selectedTask);
+                    selectedTask.TaskSelected();
                 }
                 else
                 {
@@ -125,6 +126,8 @@ public class BB_AssignmentManager : MonoBehaviour
     {
         SelectedAgent = _agent;
         Event_AgentSelected?.Invoke(SelectedAgent);
+        if (_agent != null)
+            _agent.AgentSelected();
     }
 
     #region Conditions

@@ -25,7 +25,7 @@ public class BB_SceneManager : MonoBehaviour
     }
 
     [SerializeField]
-    private readonly BB_GameScenes.GameScenes mainMenuScene = BB_GameScenes.GameScenes.IF_MainMenu1;
+    private BB_GameScenes.GameScenes mainMenuScene = BB_GameScenes.GameScenes.IF_MainMenu1;
     [SerializeField]
     private Animator transitionAnimator;
 
