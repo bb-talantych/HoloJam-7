@@ -24,6 +24,11 @@ public class BB_SceneManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private readonly BB_GameScenes.GameScenes mainMenuScene = BB_GameScenes.GameScenes.IF_MainMenu1;
+    [SerializeField]
+    private Animator transitionAnimator;
+
     private BB_GameScenes.GameScenes currentScene = BB_GameScenes.GameScenes.NoScene;
 
     public static event Action<BB_GameScenes.GameScenes> Event_LevelLoaded;
@@ -49,7 +54,7 @@ public class BB_SceneManager : MonoBehaviour
 
     private void Start()
     {
-        LoadScene(BB_GameScenes.GameScenes.IF_MainMenu1);
+        LoadScene(mainMenuScene);
     }
 
     void LoadScene(BB_GameScenes.GameScenes _sceneToLoad)
@@ -69,6 +74,10 @@ public class BB_SceneManager : MonoBehaviour
         // Start Unloading previous Scene
         if (currentScene != BB_GameScenes.GameScenes.NoScene)
         {
+            transitionAnimator.SetTrigger("StartTransition");
+            //testing
+            yield return new WaitForSeconds(1);
+
             string currentSceneName = BB_GameScenes.GetScene(currentScene);
             AsyncOperation unloadSceneAsync =
                 SceneManager.UnloadSceneAsync(currentSceneName);
@@ -95,6 +104,11 @@ public class BB_SceneManager : MonoBehaviour
         }
 
         currentScene = _sceneToLoad;
+
+        transitionAnimator.SetTrigger("EndTransition");
+        //testing
+        yield return new WaitForSeconds(1);
+
         Event_LevelLoaded?.Invoke(currentScene);
     }
 
@@ -104,6 +118,11 @@ public class BB_SceneManager : MonoBehaviour
         Debug.Log(this.name + ": " + _callerName + " called LoadLevel");
 
         LoadScene(_scene);
+    }
+
+    public bool IsMainMenu()
+    {
+        return currentScene == mainMenuScene;
     }
 
     #endregion
