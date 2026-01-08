@@ -97,7 +97,7 @@ public class BB_GameManager : MonoBehaviour
     }
     private void OnLevelLoaded(BB_GameScenes.GameScenes _scene)
     {
-        if (_scene != BB_GameScenes.GameScenes.MainMenu)
+        if (_scene != BB_GameScenes.GameScenes.IF_MainMenu1)
         {
             OnGameStart();
             // testing

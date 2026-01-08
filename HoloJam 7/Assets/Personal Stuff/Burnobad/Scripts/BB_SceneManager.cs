@@ -49,7 +49,7 @@ public class BB_SceneManager : MonoBehaviour
 
     private void Start()
     {
-        LoadScene(BB_GameScenes.GameScenes.MainMenu);
+        LoadScene(BB_GameScenes.GameScenes.IF_MainMenu1);
     }
 
     void LoadScene(BB_GameScenes.GameScenes _sceneToLoad)
