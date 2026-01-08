@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BB_CommonDataManager : MonoBehaviour
 {
-    public static BB_CommonDataManager instance;
+    private static BB_CommonDataManager instance;
     public static BB_CommonDataManager Instance
     {
         get
@@ -25,6 +25,9 @@ public class BB_CommonDataManager : MonoBehaviour
         if (instance == null)
             instance = this;
     }
+
+    public List<AudioClip> levelCompleteClips;
+    public List<AudioClip> levelFailClips;
 
     public List<AudioClip> characterSelectedClips;
 

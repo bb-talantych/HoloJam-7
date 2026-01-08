@@ -64,7 +64,7 @@ public class BB_Task : MonoBehaviour
 
     public void TaskSelected()
     {
-        BB_CommonDataManager.instance.PlayClip(sfxSource, BB_CommonDataManager.instance.taskSelectedClips);
+        BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.taskSelectedClips);
     }
     public void StartTask(Stats _talentStats)
     {
@@ -93,6 +93,7 @@ public class BB_Task : MonoBehaviour
     public void FinishTask()
     {
         Debug.Log(this.name + ": task finished");
+        BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.taskCompleteClips);
     }
 
     IEnumerator ITask(float _timeToComplete)
@@ -109,6 +110,5 @@ public class BB_Task : MonoBehaviour
         //Debug.Log(this.name + ": task coroutine completed");
 
         Event_TaskFinished?.Invoke(this, EventArgs.Empty);
-        BB_CommonDataManager.instance.PlayClip(sfxSource, BB_CommonDataManager.instance.taskCompleteClips);
     }
 }
