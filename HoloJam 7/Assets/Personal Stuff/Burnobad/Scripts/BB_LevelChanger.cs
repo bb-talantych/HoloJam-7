@@ -9,6 +9,7 @@ public class BB_LevelChanger : MonoBehaviour
 
     public void CallLevelChange()
     {
+        Debug.Log($"CallLevelChange called with scene: {scene}");
        BB_SceneManager.Instance.LoadLevel(scene, this.name);
     }
 }

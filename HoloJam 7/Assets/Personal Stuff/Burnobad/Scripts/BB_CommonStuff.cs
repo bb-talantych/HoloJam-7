@@ -34,12 +34,15 @@ namespace BB_Scenes
             MainMenu,
             BB_TestScene,
             IF_MainMenu1,
+            LevelOne
         }
 
         public const string nonScene = "";
         public const string mainMenuScene = "BB_MainMenu";
         public const string bb_testingScene = "BB_TestScene";
         public const string IF_MainMenu1 = "IF_MainMenu1.1";
+        public const string LevelOne = "IF_level1";
+
 
         public static string GetScene(GameScenes _selectedScene)
         {
@@ -58,6 +61,9 @@ namespace BB_Scenes
                     break;
                 case GameScenes.IF_MainMenu1:
                     scene = IF_MainMenu1;
+                    break;
+                case GameScenes.LevelOne:
+                    scene = LevelOne;
                     break;
             }
 
