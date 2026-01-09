@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -106,16 +107,23 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
+                SelectedAgent.LeaveHold();
+                IF_IInteractablehold holdObject = hit.collider.GetComponent<IF_IInteractablehold>();
+                if (holdObject != null && holdObject.IsAvailable) {
+                    Debug.Log($"Assigning {SelectedAgent.name} to hold interactable {holdObject}");
+                    SelectedAgent.MoveToHoldInteraction(holdObject);
+                } else {
                 BB_Task selectedTask;
-                if (AssignCondition(hit, out selectedTask))
-                {
-                    SelectedAgent.MoveToTask(selectedTask);
-                    OverwriteDic(SelectedAgent, selectedTask);
-                }
-                else
-                {
-                    SelectedAgent.MoveToPoint(hit.point);
-                    OverwriteDic(SelectedAgent, null);
+                    if (AssignCondition(hit, out selectedTask))
+                    {
+                        SelectedAgent.MoveToTask(selectedTask);
+                        OverwriteDic(SelectedAgent, selectedTask);
+                    }
+                    else
+                    {
+                        SelectedAgent.MoveToPoint(hit.point);
+                        OverwriteDic(SelectedAgent, null);
+                    }
                 }
             }
         }

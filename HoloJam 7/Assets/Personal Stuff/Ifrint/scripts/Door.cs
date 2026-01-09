@@ -1,61 +1,40 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Door : MonoBehaviour
 {
-    public bool DoorOpen = false;
-    [SerializeField] private int requiredSwitchToOpen = 1;
-    //[SerializeField] private SlideDoorManager slideDoorManager;
-    private List<IF_Lock> currentSwitchesOpen = new();
+    [SerializeField] private NavMeshObstacle navObstacle;
+    [SerializeField] private Collider doorCollider;
 
+    private bool isOpen;
+    
+    private void Awake()
+    {
+        if (!navObstacle)
+            navObstacle = GetComponent<NavMeshObstacle>();
 
-    public void AddSwitch(IF_Lock curSwitch)
-    {
-        //if (!currentSwitchesOpen.Contains curSwitch)
-        //{
-        //    currentSwitchesOpen.Add curSwitch;
-        //}
-        TryOpen();
-    }
-        public void removeSwitch(IF_Lock curSwitch)
-    {
-        //if (!currentSwitchesOpen.Contains curSwitch)
-        //{
-        //    currentSwitchesOpen.Remove curSwitch;
-        //}
-        TryOpen();
+        if (!doorCollider)
+            doorCollider = GetComponent<Collider>();
     }
 
-    private void TryOpen()
+    public void DoorClose()
     {
-        if(currentSwitchesOpen.Count == requiredSwitchToOpen)
-        {
-            OpenDoor();
-        } else if (currentSwitchesOpen.Count < requiredSwitchToOpen)
-        {
-            CloseDoor();
-        }
+        if (!isOpen) return;
+        isOpen = false;
+
+        doorCollider.enabled = true;
+        navObstacle.enabled = true;
     }
 
-    private void CloseDoor()
+    public void DoorOpen()
     {
-        DoorOpen = false;
-    }
+        if (isOpen) return;
+        isOpen = true;
 
-    private void OpenDoor()
-    {
-        DoorOpen = true;
+        doorCollider.enabled = false;
+        navObstacle.enabled = false;
     }
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -5,55 +5,46 @@ using BB_CommonStuff;
 using UnityEngine.UI;
 using System;
 
-public class IF_Lock : MonoBehaviour
+public class IF_Lock : MonoBehaviour, IF_IInteractablehold
 {
-    [SerializeField] private Door curDoor;
-    [SerializeField] private Animator animator;
-    private GameObject movePointHolder;
+    [SerializeField] private Transform movePoint;
+    [SerializeField] private Door linkedDoor;
+     [SerializeField] private GameObject movePointHolder;
+    private int occupants = 0;
+
 
     public Vector3 MovePoint
-    { 
-        get 
-        { 
-            if(movePointHolder != null)
+    {
+        get
+        {
+            if (movePointHolder != null)
                 return movePointHolder.transform.position;
-            else
-            {
-                Debug.LogError(this.name + ": not movePointHolder");
-                return Vector3.zero;
-            }
+
+            Debug.LogError($"{name}: no movePointHolder");
+            return transform.position;
         }
     }
-    public bool IsAvailable
+
+    public bool IsAvailable { get; private set; } = true;
+
+   public void OnEnter(Stats stats)
     {
-        get;
-        private set;
+        Debug.Log($"[SWITCH] {name} OnEnter by agent");
+        occupants++;
+        if (occupants == 1)
+        {
+            linkedDoor.DoorOpen();
+        }
     }
 
-    public float timeToComplete = 10f;
-
- 
-    private AudioClip sfxClip;
-
-    public event EventHandler Event_TaskAssigned;
-
-
-    private void OnEnable()
+    public void OnExit()
     {
-        IsAvailable = true;
-        curDoor.AddSwitch(this);
-        
-
+        Debug.Log($"[SWITCH] {name} OnExit by agent");
+        occupants--;
+        if (occupants <= 0)
+        {
+            occupants = 0;
+            linkedDoor.DoorClose();
+        }
     }
-
-    
-
-
-
-    public void FinishTask()
-    {
-        Debug.Log(this.name + ": task finished");
-    }
-
-   
 }
