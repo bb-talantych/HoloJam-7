@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2240348135f3d43b56ab2366d6a381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 2
+  scene: 4
 --- !u!4 &746548677
 Transform:
   m_ObjectHideFlags: 0
@@ -952,9 +952,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 11500000, guid: 1a2240348135f3d43b56ab2366d6a381, type: 3}
         m_TargetAssemblyTypeName: BB_LevelChanger, Assembly-CSharp
-        m_MethodName: CallLevelChange
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
