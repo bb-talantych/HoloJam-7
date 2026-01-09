@@ -771,7 +771,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 803700799}
-  musicClip: {fileID: 8300000, guid: 83a783a6e6a7aa2439219614d42a3ef9, type: 3}
+  levelCompleteMusicVolume: 0.3
+  ezLevelClips:
+  - {fileID: 8300000, guid: 2e230cfdcf16aaa429d24e5c996095e2, type: 3}
+  - {fileID: 8300000, guid: 83a783a6e6a7aa2439219614d42a3ef9, type: 3}
+  medLevelClips:
+  - {fileID: 8300000, guid: fad805b6d2269bb438dc8e42f13cc25f, type: 3}
+  - {fileID: 8300000, guid: cc4595a118549d74e811675455ad7497, type: 3}
+  hardLevelClips:
+  - {fileID: 8300000, guid: 054f841d91c45f6418d431e4492430e6, type: 3}
+  - {fileID: 8300000, guid: 1882b551033f02c4baddea518b96d869, type: 3}
 --- !u!1 &832297191
 GameObject:
   m_ObjectHideFlags: 0

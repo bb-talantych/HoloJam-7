@@ -99,7 +99,7 @@ public class BB_GameManager : MonoBehaviour
     {
         Debug.Log(this.name.ToString() + ": Game Start");
     }
-    private void OnLevelLoaded(BB_GameScenes.GameScenes _scene)
+    private void OnLevelLoaded(BB_GameScenes.GameScenes _scene, bool _isReload)
     {
         if (!BB_SceneManager.Instance.IsMainMenu())
         {
