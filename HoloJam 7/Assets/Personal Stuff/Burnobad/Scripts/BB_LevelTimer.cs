@@ -10,7 +10,7 @@ public class BB_LevelTimer : MonoBehaviour
     private float levelTime = 20;
     [SerializeField]
     private TMP_Text test;
-
+    [SerializeField] private IF_EmergencyManager emergencyManager;
     private float elapsedTime;
 
     public static Action Event_LevelTimerEnded;
@@ -43,6 +43,11 @@ public class BB_LevelTimer : MonoBehaviour
 
             float time = levelTime - elapsedTime;
             test.text = Mathf.FloorToInt(time).ToString();
+
+            if (emergencyManager != null)
+            {
+                emergencyManager.UpdateCountdown(time);
+            }
 
             yield return new WaitForEndOfFrame();
         }

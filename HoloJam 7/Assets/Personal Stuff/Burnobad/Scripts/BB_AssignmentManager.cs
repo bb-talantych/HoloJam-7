@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -251,6 +252,13 @@ public class BB_AssignmentManager : MonoBehaviour
         task.FinishTask();
         agent.FinishTask();
         Event_AgentFinishedTask?.Invoke(agent);
+
+        IF_EmergencyTask emergency = task.GetComponent<IF_EmergencyTask>();
+        if (emergency != null)
+        {
+            emergency.Complete();
+            Debug.Log("emergency task complete");
+        }
 
         if (LevelCompleteCondition())
         {
