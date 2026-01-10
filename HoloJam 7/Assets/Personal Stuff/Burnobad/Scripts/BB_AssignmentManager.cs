@@ -90,7 +90,7 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if(SelectionCondition(hit, out BB_NavMeshAgent agent))
+                if (SelectionCondition(hit, out BB_NavMeshAgent agent))
                 {
                     SelectAgent(agent);
                 }
@@ -114,17 +114,18 @@ public class BB_AssignmentManager : MonoBehaviour
                     Debug.Log($"Assigning {SelectedAgent.name} to hold interactable {holdObject}");
                     SelectedAgent.MoveToHoldInteraction(holdObject);
                 } else {
-                BB_Task selectedTask;
-                if (AssignCondition(hit, out selectedTask))
-                {
-                    SelectedAgent.MoveToTask(selectedTask);
-                    OverwriteDic(SelectedAgent, selectedTask);
-                    selectedTask.TaskSelected();
-                }
-                else
-                {
-                    SelectedAgent.MoveToPoint(hit.point);
-                    OverwriteDic(SelectedAgent, null);
+                    BB_Task selectedTask;
+                    if (AssignCondition(hit, out selectedTask))
+                    {
+                        SelectedAgent.MoveToTask(selectedTask);
+                        OverwriteDic(SelectedAgent, selectedTask);
+                        selectedTask.TaskSelected();
+                    }
+                    else
+                    {
+                        SelectedAgent.MoveToPoint(hit.point);
+                        OverwriteDic(SelectedAgent, null);
+                    }
                 }
             }
         }
@@ -210,7 +211,7 @@ public class BB_AssignmentManager : MonoBehaviour
         BB_NavMeshAgent agent = (BB_NavMeshAgent)_sender;
         BB_Task task = null;
 
-        if(agent_task_dic.ContainsKey(agent))
+        if (agent_task_dic.ContainsKey(agent))
         {
             task = agent_task_dic[agent];
         }
@@ -297,4 +298,5 @@ public class BB_AssignmentManager : MonoBehaviour
     }
 
     #endregion
+    
 }
