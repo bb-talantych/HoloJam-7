@@ -121,7 +121,8 @@ public class BB_AssignmentManager : MonoBehaviour
                     OverwriteDic(SelectedAgent, selectedTask);
                     selectedTask.TaskSelected();
                 }
-                else
+                }
+            }  else {
                 {
                     SelectedAgent.MoveToPoint(hit.point);
                     OverwriteDic(SelectedAgent, null);
