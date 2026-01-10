@@ -29,6 +29,9 @@ public class BB_GameManager : MonoBehaviour
     public GameObject tempWinScreen;
     public GameObject tempLoseScreen;
 
+    [SerializeField]
+    private AudioSource sfxSource;
+
     #region Events
 
     public static event Action Event_GameOver;
@@ -88,6 +91,7 @@ public class BB_GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         Event_GameOver?.Invoke();
+        BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.levelFailClips);
     }
 
     #region Event Reponses
@@ -95,9 +99,9 @@ public class BB_GameManager : MonoBehaviour
     {
         Debug.Log(this.name.ToString() + ": Game Start");
     }
-    private void OnLevelLoaded(BB_GameScenes.GameScenes _scene)
+    private void OnLevelLoaded(BB_GameScenes.GameScenes _scene, bool _isReload)
     {
-        if (_scene != BB_GameScenes.GameScenes.IF_MainMenu1)
+        if (!BB_SceneManager.Instance.IsMainMenu())
         {
             OnGameStart();
             // testing
@@ -111,6 +115,8 @@ public class BB_GameManager : MonoBehaviour
 
         tempWinScreen.SetActive(true);
         tempLoseScreen.SetActive(false);
+
+        BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.levelCompleteClips);
     }
     private void OnLevelTimerEnded()
     {

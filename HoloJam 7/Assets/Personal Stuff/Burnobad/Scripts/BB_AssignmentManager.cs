@@ -115,16 +115,16 @@ public class BB_AssignmentManager : MonoBehaviour
                     SelectedAgent.MoveToHoldInteraction(holdObject);
                 } else {
                 BB_Task selectedTask;
-                    if (AssignCondition(hit, out selectedTask))
-                    {
-                        SelectedAgent.MoveToTask(selectedTask);
-                        OverwriteDic(SelectedAgent, selectedTask);
-                    }
-                    else
-                    {
-                        SelectedAgent.MoveToPoint(hit.point);
-                        OverwriteDic(SelectedAgent, null);
-                    }
+                if (AssignCondition(hit, out selectedTask))
+                {
+                    SelectedAgent.MoveToTask(selectedTask);
+                    OverwriteDic(SelectedAgent, selectedTask);
+                    selectedTask.TaskSelected();
+                }
+                else
+                {
+                    SelectedAgent.MoveToPoint(hit.point);
+                    OverwriteDic(SelectedAgent, null);
                 }
             }
         }
@@ -134,6 +134,8 @@ public class BB_AssignmentManager : MonoBehaviour
     {
         SelectedAgent = _agent;
         Event_AgentSelected?.Invoke(SelectedAgent);
+        if (_agent != null)
+            _agent.AgentSelected();
     }
 
     #region Conditions

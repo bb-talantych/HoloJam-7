@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using BB_CommonStuff;
+using BB_CommonLevelStuff;
 using UnityEngine.TextCore.Text;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator), typeof(AudioSource))]
 public class BB_NavMeshAgent : MonoBehaviour
 {
     public Stats stats = default;
@@ -30,8 +30,7 @@ public class BB_NavMeshAgent : MonoBehaviour
 
     [SerializeField]
     private AudioSource sfxSource;
-    [SerializeField]
-    private AudioClip agentSelectedClip;
+
 
 
     private void OnEnable()
@@ -106,6 +105,10 @@ public class BB_NavMeshAgent : MonoBehaviour
 
         IsAvailable = true;
     }
+    public void AgentSelected()
+    {
+        BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.characterSelectedClips);
+    }
 
     public void LeaveHold()
     {
@@ -136,26 +139,6 @@ public class BB_NavMeshAgent : MonoBehaviour
 
         return true;
     }
-
-    #endregion
-
-    #region Event Responces
-
-    void OnAgentSelected(BB_NavMeshAgent _agent)
-    {
-        if(agent != _agent)
-        {
-            return;
-        }
-
-        if (sfxSource != null && agentSelectedClip != null)
-        {
-            sfxSource.loop = false;
-            sfxSource.clip = agentSelectedClip;
-            sfxSource.Play();
-        }
-    }
-
 
     #endregion
 

@@ -24,9 +24,14 @@ public class BB_SceneManager : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private BB_GameScenes.GameScenes mainMenuScene = BB_GameScenes.GameScenes.IF_MainMenu1;
+    [SerializeField]
+    private Animator transitionAnimator;
+
     private BB_GameScenes.GameScenes currentScene = BB_GameScenes.GameScenes.NoScene;
 
-    public static event Action<BB_GameScenes.GameScenes> Event_LevelLoaded;
+    public static event Action<BB_GameScenes.GameScenes, bool> Event_LevelLoaded;
 
     #region On Enable/Disable
     private void OnEnable()
@@ -49,15 +54,15 @@ public class BB_SceneManager : MonoBehaviour
 
     private void Start()
     {
-        LoadScene(BB_GameScenes.GameScenes.IF_MainMenu1);
+        LoadScene(mainMenuScene);
     }
 
-    void LoadScene(BB_GameScenes.GameScenes _sceneToLoad)
+    void LoadScene(BB_GameScenes.GameScenes _sceneToLoad, bool _isReload = false)
     {
-        StartCoroutine(ILoadScene(_sceneToLoad));
+        StartCoroutine(ILoadScene(_sceneToLoad, _isReload));
     }
 
-    IEnumerator ILoadScene(BB_GameScenes.GameScenes _sceneToLoad)
+    IEnumerator ILoadScene(BB_GameScenes.GameScenes _sceneToLoad, bool _isReload)
     {
         if(_sceneToLoad == BB_GameScenes.GameScenes.NoScene)
         {
@@ -69,6 +74,10 @@ public class BB_SceneManager : MonoBehaviour
         // Start Unloading previous Scene
         if (currentScene != BB_GameScenes.GameScenes.NoScene)
         {
+            transitionAnimator.SetTrigger("StartTransition");
+            //testing
+            yield return new WaitForSeconds(1);
+
             string currentSceneName = BB_GameScenes.GetScene(currentScene);
             AsyncOperation unloadSceneAsync =
                 SceneManager.UnloadSceneAsync(currentSceneName);
@@ -95,7 +104,12 @@ public class BB_SceneManager : MonoBehaviour
         }
 
         currentScene = _sceneToLoad;
-        Event_LevelLoaded?.Invoke(currentScene);
+
+        transitionAnimator.SetTrigger("EndTransition");
+        //testing
+        yield return new WaitForSeconds(1);
+
+        Event_LevelLoaded?.Invoke(currentScene, _isReload);
     }
 
     #region Public Methodes
@@ -106,13 +120,18 @@ public class BB_SceneManager : MonoBehaviour
         LoadScene(_scene);
     }
 
+    public bool IsMainMenu()
+    {
+        return currentScene == mainMenuScene;
+    }
+
     #endregion
     #region Event Reponses
 
     private void OnLevelRestart()
     {
         Debug.Log(this.name + ": on game restart");
-        LoadScene(currentScene);
+        LoadScene(currentScene, true);
     }
 
     #endregion
