@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a0b1caa83188d40bbbaea3b680cd3e, type: 3}
+  m_Name: TestSceneData
+  m_EditorClassIdentifier: Assembly-CSharp::SceneData
+  steps:
+  - {fileID: 11400000, guid: dfbb217200627714d89b99d0f77ad8d6, type: 2}
+  - {fileID: 11400000, guid: b7803f3d6bcccdd45a516c87750fbfe4, type: 2}
+  - {fileID: 11400000, guid: 947b908d9d2013c45bf00dc0dd950b5b, type: 2}
+  - {fileID: 11400000, guid: 9fad92e06eb48a34db6a7d61b2f1e8b7, type: 2}
+  - {fileID: 11400000, guid: fe58969ee55013045938097fa5c252dc, type: 2}
+  - {fileID: 11400000, guid: 0e6415ab579d9754dbd87aed504bec88, type: 2}
+  - {fileID: 11400000, guid: 8c53aac5ffd55c1438ab82b192107314, type: 2}
