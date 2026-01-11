@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Task
   - Lock
+  - NoGo
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - 
   - 
   - characters
-  - 
+  - nav mesh ignore
   - 
   - 
   - 

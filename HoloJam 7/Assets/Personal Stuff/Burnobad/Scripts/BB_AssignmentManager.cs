@@ -112,6 +112,9 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
+                if (hit.collider.tag == "NoGo")
+                    return;
+
                 if (AssignTaskCondition(hit, out BB_Task selectedTask))
                 {
                     SelectedAgent.MoveTo(selectedTask.MovePoint);
