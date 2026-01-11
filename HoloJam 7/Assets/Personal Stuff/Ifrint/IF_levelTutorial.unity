@@ -1581,7 +1581,11 @@ MonoBehaviour:
     intellect: 0
     charisma: 0
   animator: {fileID: 115264579}
+<<<<<<< Updated upstream
   sfxSource: {fileID: 0}
+=======
+  sfxSource: {fileID: 115264580}
+>>>>>>> Stashed changes
 --- !u!195 &115264574
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3746,7 +3750,6 @@ MonoBehaviour:
   - {fileID: 1421869378}
   sceneTasks:
   - {fileID: 2031597347}
-  - {fileID: 0}
   - {fileID: 1820185923}
   cam: {fileID: 507827055}
 --- !u!4 &510445955
@@ -7818,6 +7821,7 @@ GameObject:
   - component: {fileID: 1234179933}
   - component: {fileID: 1234179932}
   - component: {fileID: 1234179931}
+  - component: {fileID: 1234179935}
   m_Layer: 0
   m_Name: door (1)
   m_TagString: Untagged
@@ -7911,6 +7915,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1234179935
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234179930}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.08981085, y: 2.6024818, z: 1.8434968}
+  m_Center: {x: 3.8370224e-13, y: -0.65061796, z: -0.124774694}
 --- !u!1 &1250073686
 GameObject:
   m_ObjectHideFlags: 0
@@ -7958,7 +7983,7 @@ GameObject:
   - component: {fileID: 1258580201}
   m_Layer: 0
   m_Name: Switch
-  m_TagString: Task
+  m_TagString: Lock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8656,7 +8681,11 @@ MonoBehaviour:
     intellect: 0
     charisma: 0
   animator: {fileID: 1421869384}
+<<<<<<< Updated upstream
   sfxSource: {fileID: 0}
+=======
+  sfxSource: {fileID: 1421869385}
+>>>>>>> Stashed changes
 --- !u!65 &1421869379
 BoxCollider:
   m_ObjectHideFlags: 0

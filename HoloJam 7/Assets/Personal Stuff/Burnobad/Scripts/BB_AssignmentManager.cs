@@ -44,6 +44,10 @@ public class BB_AssignmentManager : MonoBehaviour
     private Dictionary<BB_Task, bool> task_completion_dic =
        new Dictionary<BB_Task, bool>();
 
+    //tracks the completion of tasks
+    private Dictionary<BB_NavMeshAgent, IF_Lock> agent_lock_dic =
+       new Dictionary<BB_NavMeshAgent, IF_Lock>();
+
     public static event EventHandler Event_LevelCompleted;
     public event Action<BB_NavMeshAgent> Event_AgentSelected;
     public event Action<BB_NavMeshAgent> Event_AgentFinishedTask;
@@ -108,24 +112,21 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                SelectedAgent.LeaveHold();
-                IF_IInteractablehold holdObject = hit.collider.GetComponent<IF_IInteractablehold>();
-                if (holdObject != null && holdObject.IsAvailable) {
-                    Debug.Log($"Assigning {SelectedAgent.name} to hold interactable {holdObject}");
-                    SelectedAgent.MoveToHoldInteraction(holdObject);
-                } else {
-                    BB_Task selectedTask;
-                    if (AssignCondition(hit, out selectedTask))
-                    {
-                        SelectedAgent.MoveToTask(selectedTask);
-                        OverwriteDic(SelectedAgent, selectedTask);
-                        selectedTask.TaskSelected();
-                    }
-                    else
-                    {
-                        SelectedAgent.MoveToPoint(hit.point);
-                        OverwriteDic(SelectedAgent, null);
-                    }
+                if (AssignTaskCondition(hit, out BB_Task selectedTask))
+                {
+                    SelectedAgent.MoveTo(selectedTask.MovePoint);
+                    OverwriteDic(SelectedAgent, selectedTask);
+                    selectedTask.TaskSelected();
+                }
+                else if(IF_LockCondition(hit, out IF_Lock if_lock))
+                {
+                    SelectedAgent.MoveTo(selectedTask.MovePoint);
+                    OverwriteLockDic(SelectedAgent, if_lock);
+                }
+                else
+                {
+                    SelectedAgent.MoveTo(hit.point);
+                    OverwriteDic(SelectedAgent, null);
                 }
             }
         }
@@ -155,7 +156,7 @@ public class BB_AssignmentManager : MonoBehaviour
         agent = hitAgent;
         return true;
     }
-    bool AssignCondition(RaycastHit _hit, out BB_Task selectedTask)
+    bool AssignTaskCondition(RaycastHit _hit, out BB_Task selectedTask)
     {
         selectedTask = null;
         if (_hit.collider.gameObject.tag != "Task")
@@ -204,13 +205,29 @@ public class BB_AssignmentManager : MonoBehaviour
         return true;
     }
 
+    bool IF_LockCondition(RaycastHit _hit, out IF_Lock if_lock)
+    {
+        if_lock = null;
+        if (_hit.collider.gameObject.tag != "Lock")
+            return false;
+
+        IF_Lock selectedLock = _hit.collider.gameObject.GetComponent<IF_Lock>();
+        if (selectedLock == null)
+            return false;
+        if (!selectedLock.IsAvailable)
+            return false;
+
+        if_lock = selectedLock;
+        return true;
+    }
+
     #endregion
     #region Event Responses
     private void OnAgentFinishedMoving(object _sender, EventArgs e)
     {
         BB_NavMeshAgent agent = (BB_NavMeshAgent)_sender;
-        BB_Task task = null;
 
+        BB_Task task = null;
         if (agent_task_dic.ContainsKey(agent))
         {
             task = agent_task_dic[agent];
@@ -226,6 +243,20 @@ public class BB_AssignmentManager : MonoBehaviour
 
             task.StartTask(agent.TalentStats);
             agent.StartTask();
+        }
+
+        IF_Lock if_lock = null;
+        if (agent_lock_dic.ContainsKey(agent))
+        {
+            if_lock = agent_lock_dic[agent];
+        }
+        if (if_lock != null)
+        {
+            //testing
+            if (SelectedAgent == agent)
+                SelectAgent(null);
+
+            if_lock.OnEnter(agent);
         }
     }
     private void OnTaskAssigned(object _sender, EventArgs e)
@@ -296,7 +327,15 @@ public class BB_AssignmentManager : MonoBehaviour
         }
         task_completion_dic.Add(_task, _completed);
     }
+    private void OverwriteLockDic(BB_NavMeshAgent _agent, IF_Lock _lock)
+    {
+        if (agent_lock_dic.ContainsKey(_agent))
+        {
+            agent_lock_dic.Remove(_agent);
+        }
+        agent_lock_dic.Add(_agent, _lock);
+    }
 
     #endregion
-    
+
 }

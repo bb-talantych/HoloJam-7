@@ -5,13 +5,12 @@ using BB_CommonLevelStuff;
 using UnityEngine.UI;
 using System;
 
-public class IF_Lock : MonoBehaviour, IF_IInteractablehold
+public class IF_Lock : MonoBehaviour
 {
     [SerializeField] private Transform movePoint;
     [SerializeField] private Door linkedDoor;
      [SerializeField] private GameObject movePointHolder;
-    private int occupants = 0;
-
+    private bool occupied = false;
 
     public Vector3 MovePoint
     {
@@ -19,32 +18,33 @@ public class IF_Lock : MonoBehaviour, IF_IInteractablehold
         {
             if (movePointHolder != null)
                 return movePointHolder.transform.position;
-
-            Debug.LogError($"{name}: no movePointHolder");
-            return transform.position;
+            else
+            {
+                Debug.LogError(this.name + ": not movePointHolder");
+                return Vector3.zero;
+            }
         }
     }
+    private BB_NavMeshAgent assignedAgent;
+
 
     public bool IsAvailable { get; private set; } = true;
 
-   public void OnEnter(Stats stats)
+   public void OnEnter(BB_NavMeshAgent _agent)
     {
         Debug.Log($"[SWITCH] {name} OnEnter by agent");
-        occupants++;
-        if (occupants == 1)
-        {
-            linkedDoor.DoorOpen();
-        }
+
+        IsAvailable = false;
+
+        assignedAgent = _agent;
+        linkedDoor.DoorOpen();
     }
 
     public void OnExit()
     {
         Debug.Log($"[SWITCH] {name} OnExit by agent");
-        occupants--;
-        if (occupants <= 0)
-        {
-            occupants = 0;
-            linkedDoor.DoorClose();
-        }
+
+        IsAvailable = true;
+        linkedDoor.DoorClose();
     }
 }

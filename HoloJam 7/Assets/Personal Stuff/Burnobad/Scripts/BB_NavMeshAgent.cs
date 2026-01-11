@@ -22,7 +22,6 @@ public class BB_NavMeshAgent : MonoBehaviour
     { get; private set; }
     private bool isMoving;
     private NavMeshAgent agent;
-    private IF_IInteractablehold currentInteractableHold;
     public event EventHandler Event_AgentFinishedMoving;
 
     [SerializeField]
@@ -37,28 +36,14 @@ public class BB_NavMeshAgent : MonoBehaviour
     {
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
+        if(sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
 
         IsAvailable = true;
         isMoving = false;
-        Event_AgentFinishedMoving += HandleArrived;
 
         // testing
         stats = new Stats(-3, 3);
-    }
-
-    private void HandleArrived(object sender, EventArgs e)
-    {
-        Debug.Log($"[AGENT] Arrived. Hold = {(currentInteractableHold == null ? "NULL" : currentInteractableHold.ToString())}");
-        if (currentInteractableHold != null)
-        {
-            currentInteractableHold.OnEnter(TalentStats);
-        }
-    }
-
-    public void MoveToHoldInteraction(IF_IInteractablehold hold)
-    {
-        currentInteractableHold = hold;
-        MoveToPoint(hold.MovePoint);
     }
 
     private void FixedUpdate()
@@ -72,26 +57,17 @@ public class BB_NavMeshAgent : MonoBehaviour
             animator.SetTrigger("Stopped");
         }
     }
-
-
-    public void MoveToPoint(Vector3 _destination)
+    public void MoveTo(Vector3 _destination)
     {
-        //Debug.Log(this.name + ": moves to point");
-
         isMoving = true;
         agent.SetDestination(_destination);
 
         animator.SetTrigger("Moving");
     }
-    public void MoveToTask(BB_Task _task)
-    {
-        Debug.Log(this.name + ": moves to task");
-        MoveToPoint(_task.MovePoint);
-    }
     public void StopMoving()
     {
         //testing
-        MoveToPoint(transform.position);
+        MoveTo(transform.position);
     }
     public void StartTask()
     {
@@ -108,21 +84,6 @@ public class BB_NavMeshAgent : MonoBehaviour
     public void AgentSelected()
     {
         BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.characterSelectedClips);
-    }
-
-    public void LeaveHold()
-    {
-        if (currentInteractableHold != null)
-        {
-            currentInteractableHold.OnExit();
-            currentInteractableHold = null;
-        }
-
-    }
-
-    private void Osable()
-    {
-        Event_AgentFinishedMoving -= HandleArrived;
     }
 
     #region Conditions
