@@ -1582,7 +1582,11 @@ MonoBehaviour:
     charisma: 0
   animator: {fileID: 115264579}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   sfxSource: {fileID: 0}
+=======
+  sfxSource: {fileID: 115264580}
+>>>>>>> Stashed changes
 =======
   sfxSource: {fileID: 115264580}
 >>>>>>> Stashed changes
@@ -8682,7 +8686,11 @@ MonoBehaviour:
     charisma: 0
   animator: {fileID: 1421869384}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   sfxSource: {fileID: 0}
+=======
+  sfxSource: {fileID: 1421869385}
+>>>>>>> Stashed changes
 =======
   sfxSource: {fileID: 1421869385}
 >>>>>>> Stashed changes
