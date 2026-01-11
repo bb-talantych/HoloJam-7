@@ -112,8 +112,15 @@ public class BB_AssignmentManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
+                // dump way for occlussion plane to work
                 if (hit.collider.tag == "NoGo")
-                    return;
+                {
+                    if(hit.collider.TryGetComponent<BB_OcclusionPlane>(out BB_OcclusionPlane plane))
+                    {
+                        if (!plane.CheckAgent(SelectedAgent))
+                            return;
+                    }
+                }
 
                 if (AssignTaskCondition(hit, out BB_Task selectedTask))
                 {

@@ -87,6 +87,7 @@ public class BB_NavMeshAgent : MonoBehaviour
     }
     public void AgentSelected()
     {
+        if(BB_CommonDataManager.Instance != null)
         BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.characterSelectedClips);
     }
 
