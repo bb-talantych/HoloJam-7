@@ -30,6 +30,8 @@ public class BB_NavMeshAgent : MonoBehaviour
     [SerializeField]
     private AudioSource sfxSource;
 
+    //testimg
+    public event EventHandler Event_AgentStartedMoving;
 
 
     private void OnEnable()
@@ -63,6 +65,8 @@ public class BB_NavMeshAgent : MonoBehaviour
         agent.SetDestination(_destination);
 
         animator.SetTrigger("Moving");
+
+        Event_AgentStartedMoving?.Invoke(this, EventArgs.Empty);
     }
     public void StopMoving()
     {

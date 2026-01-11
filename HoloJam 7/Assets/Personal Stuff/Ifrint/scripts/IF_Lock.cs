@@ -7,10 +7,8 @@ using System;
 
 public class IF_Lock : MonoBehaviour
 {
-    [SerializeField] private Transform movePoint;
     [SerializeField] private Door linkedDoor;
      [SerializeField] private GameObject movePointHolder;
-    private bool occupied = false;
 
     public Vector3 MovePoint
     {
@@ -37,14 +35,25 @@ public class IF_Lock : MonoBehaviour
         IsAvailable = false;
 
         assignedAgent = _agent;
-        linkedDoor.DoorOpen();
+        assignedAgent.Event_AgentStartedMoving += OnExit;
+
+        if(linkedDoor != null)
+            linkedDoor.DoorOpen();
     }
 
-    public void OnExit()
+    public void OnExit(object _sender, EventArgs  e)
     {
+        if ((BB_NavMeshAgent)_sender != assignedAgent)
+            return;
+
         Debug.Log($"[SWITCH] {name} OnExit by agent");
 
+        assignedAgent.Event_AgentStartedMoving -= OnExit;
         IsAvailable = true;
-        linkedDoor.DoorClose();
+        assignedAgent = null;
+
+        if (linkedDoor != null)
+            linkedDoor.DoorClose();
     }
+
 }

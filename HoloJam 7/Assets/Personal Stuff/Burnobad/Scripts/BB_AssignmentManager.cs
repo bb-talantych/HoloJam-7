@@ -120,13 +120,14 @@ public class BB_AssignmentManager : MonoBehaviour
                 }
                 else if(IF_LockCondition(hit, out IF_Lock if_lock))
                 {
-                    SelectedAgent.MoveTo(selectedTask.MovePoint);
+                    SelectedAgent.MoveTo(if_lock.MovePoint);
                     OverwriteLockDic(SelectedAgent, if_lock);
                 }
                 else
                 {
                     SelectedAgent.MoveTo(hit.point);
                     OverwriteDic(SelectedAgent, null);
+                    OverwriteLockDic(SelectedAgent, null);
                 }
             }
         }
