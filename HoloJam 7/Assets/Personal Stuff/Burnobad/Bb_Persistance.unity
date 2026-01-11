@@ -840,6 +840,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 803700799}
   levelCompleteMusicVolume: 0.3
+  mainMenuClips:
+  - {fileID: 8300000, guid: 7daf5995caee7cd478fd98a9d4163589, type: 3}
   ezLevelClips:
   - {fileID: 8300000, guid: 2e230cfdcf16aaa429d24e5c996095e2, type: 3}
   - {fileID: 8300000, guid: 83a783a6e6a7aa2439219614d42a3ef9, type: 3}

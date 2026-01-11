@@ -29,6 +29,8 @@ public class BB_MusicManager : MonoBehaviour
     private float levelCompleteMusicVolume = 0.25f;
 
     [SerializeField]
+    private List<AudioClip> mainMenuClips;
+    [SerializeField]
     private List<AudioClip> ezLevelClips;
     [SerializeField]
     private List<AudioClip> medLevelClips;
@@ -66,8 +68,28 @@ public class BB_MusicManager : MonoBehaviour
     {
         switch(_scene)
         {
+            case BB_GameScenes.GameScenes.IF_MainMenu1:
+                PlayMusic(mainMenuClips, _isReload);
+                break;
             case BB_GameScenes.GameScenes.BB_TestScene:
                 PlayMusic(ezLevelClips, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.LevelTutorial:
+                PlayMusic(mainMenuClips, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.LevelOne:
+                PlayMusic(ezLevelClips, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.LevelTwo:
+                PlayMusic(medLevelClips, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.LevelThree:
+                PlayMusic(hardLevelClips, _isReload);
+                break;
+
+
+            default:
+                musicSource.Stop();
                 break;
         }
     }
@@ -92,15 +114,19 @@ public class BB_MusicManager : MonoBehaviour
     }
     IEnumerator PlayMusicCor(List<AudioClip> _clips)
     {
-        //intro
-        musicSource.loop = false;
-        musicSource.clip = _clips[0];
-        musicSource.Play();
-        yield return new WaitForSeconds(_clips[0].length);
+        if(_clips.Count > 1)
+        {
+            //intro
+            musicSource.loop = false;
+            musicSource.clip = _clips[0];
+            musicSource.Play();
+
+            yield return new WaitForSeconds(_clips[0].length);
+        }
 
         // main loop
         musicSource.loop = true;
-        musicSource.clip = _clips[1];
+        musicSource.clip = _clips[_clips.Count - 1];
         musicSource.Play();
 
     }
