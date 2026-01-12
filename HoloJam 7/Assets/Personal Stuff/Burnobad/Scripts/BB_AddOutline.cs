@@ -115,7 +115,7 @@ public class BB_AddOutline : MonoBehaviour
             }
             else if(agent == null && task == null)
             {
-                Debug.Log(this.name);
+                //Debug.Log(this.name);
                 EnableOutlines(hoverColor);
             }
             else

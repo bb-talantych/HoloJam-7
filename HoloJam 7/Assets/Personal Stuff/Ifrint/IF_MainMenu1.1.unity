@@ -823,7 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2240348135f3d43b56ab2366d6a381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BB_LevelChanger
-  scene: 4
+  scene: 8
 --- !u!1 &763023259
 GameObject:
   m_ObjectHideFlags: 0

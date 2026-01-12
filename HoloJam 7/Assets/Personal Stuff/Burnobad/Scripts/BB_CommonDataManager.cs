@@ -84,7 +84,15 @@ namespace BB_Scenes
             LevelTutorial,
             LevelOne,
             LevelTwo,
-            LevelThree
+            LevelThree,
+            Cutscene1,
+            Cutscene2,
+            Cutscene3,
+            Cutscene4,
+            Cutscene5,
+            Cutscene6,
+            Cutscene7,
+            Cutscene8
         }
 
         public const string nonScene = "";
@@ -96,6 +104,14 @@ namespace BB_Scenes
         public const string LevelTwo = "IF_level2";
         public const string LevelThree = "IF_level3";
 
+        public const string Cutscene1 = "Cutscene1";
+        public const string Cutscene2 = "Cutscene2";
+        public const string Cutscene3 = "Cutscene3";
+        public const string Cutscene4 = "Cutscene4";
+        public const string Cutscene5 = "Cutscene5";
+        public const string Cutscene6 = "Cutscene6";
+        public const string Cutscene7 = "Cutscene7";
+        public const string Cutscene8 = "Cutscene8";
 
         public static string GetScene(GameScenes _selectedScene)
         {
@@ -127,8 +143,32 @@ namespace BB_Scenes
                 case GameScenes.LevelThree:
                     scene = LevelThree;
                     break;
-            }
 
+                case GameScenes.Cutscene1:
+                    scene = Cutscene1;
+                    break;
+                case GameScenes.Cutscene2:
+                    scene = Cutscene2;
+                    break;
+                case GameScenes.Cutscene3:
+                    scene = Cutscene3;
+                    break;
+                case GameScenes.Cutscene4:
+                    scene = Cutscene4;
+                    break;
+                case GameScenes.Cutscene5:
+                    scene = Cutscene5;
+                    break;
+                case GameScenes.Cutscene6:
+                    scene = Cutscene6;
+                    break;
+                case GameScenes.Cutscene7:
+                    scene = Cutscene7;
+                    break;
+                case GameScenes.Cutscene8:
+                    scene = Cutscene8;
+                    break;
+            }
             return scene;
         }
     }
