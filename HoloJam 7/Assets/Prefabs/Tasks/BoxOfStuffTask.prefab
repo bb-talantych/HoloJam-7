@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -258,7 +258,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2.27, y: 1.76, z: 2.05}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4792761273642442565
 MonoBehaviour:
@@ -502,7 +502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -591,7 +591,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 3930141792902120905}
   m_FillRect: {fileID: 7132979967570227917}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4dbe83087ef9914b82b284af2cae45d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -875,15 +875,173 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8391222552659086748, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_TagString
+      value: Task
+      objectReference: {fileID: 0}
+    - target: {fileID: -516098083770646512, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_TagString
+      value: Task
+      objectReference: {fileID: 0}
+    - target: {fileID: -391268320553695201, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_TagString
+      value: Task
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
       propertyPath: m_Name
       value: boxofstuff
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_TagString
+      value: Task
+      objectReference: {fileID: 0}
+    - target: {fileID: 5233112405309087440, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_TagString
+      value: Task
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      propertyPath: m_TagString
+      value: Task
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5233112405309087440, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4903907023874548563}
+    - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7699566168916093366}
+    - targetCorrespondingSourceObject: {fileID: -516098083770646512, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4867018545594299341}
+    - targetCorrespondingSourceObject: {fileID: 8416272007918961125, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2149803107312889564}
+    - targetCorrespondingSourceObject: {fileID: -391268320553695201, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3424601013007995612}
   m_SourcePrefab: {fileID: 100100000, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+--- !u!1 &334324451688821465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5233112405309087440, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+  m_PrefabInstance: {fileID: 5493268191905901577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4903907023874548563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334324451688821465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BB_AddOutline
+  OutlineSize: 0.3
+  hoverColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
+--- !u!1 &3812985198813359129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+  m_PrefabInstance: {fileID: 5493268191905901577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4867018545594299341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812985198813359129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BB_AddOutline
+  OutlineSize: 0.3
+  hoverColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
+--- !u!1 &3940066769427260438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -391268320553695201, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+  m_PrefabInstance: {fileID: 5493268191905901577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3424601013007995612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940066769427260438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BB_AddOutline
+  OutlineSize: 0.3
+  hoverColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
+--- !u!1 &4102947056980733420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8416272007918961125, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+  m_PrefabInstance: {fileID: 5493268191905901577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2149803107312889564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4102947056980733420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BB_AddOutline
+  OutlineSize: 0.3
+  hoverColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
+--- !u!1 &5165736373990383213 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}
+  m_PrefabInstance: {fileID: 5493268191905901577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7699566168916093366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165736373990383213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BB_AddOutline
+  OutlineSize: 0.3
+  hoverColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!4 &5455753803175136226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c1b5613ade414c54ba1e695f883fb2f5, type: 3}

@@ -350,8 +350,34 @@ PrefabInstance:
     - {fileID: -8700617353114198275, guid: 1cac8e09e656d9f4593dd69ea28e9222, type: 3}
     - {fileID: 65702495048144492, guid: 1cac8e09e656d9f4593dd69ea28e9222, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -8391222552659086748, guid: 1cac8e09e656d9f4593dd69ea28e9222, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8077181462314840407}
   m_SourcePrefab: {fileID: 100100000, guid: 1cac8e09e656d9f4593dd69ea28e9222, type: 3}
+--- !u!1 &1432527565729649888 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 1cac8e09e656d9f4593dd69ea28e9222, type: 3}
+  m_PrefabInstance: {fileID: 1760133085317785220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8077181462314840407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432527565729649888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f29d46697907846afa7a8b44b5f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BB_AddOutline
+  OutlineSize: 0.3
+  hoverColor: {r: 0, g: 0, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
+  outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!4 &2298954338371502447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1cac8e09e656d9f4593dd69ea28e9222, type: 3}
