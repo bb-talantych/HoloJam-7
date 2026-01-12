@@ -7,22 +7,25 @@ public class Door : MonoBehaviour
     [SerializeField] List<GameObject> obstructionPlanes;
     private void OnEnable()
     {
-        SetPlanes(true);
+        GetComponent<NavMeshObstacle>().enabled = true;
+        //SetPlanes(true);
     }
     public void DoorClose()
     {
         Debug.Log("door closed");
-
-        SetPlanes(true);
+        GetComponent<NavMeshObstacle>().enabled = true;
+        //SetPlanes(true);
     }
 
     public void DoorOpen()
     {
         Debug.Log("door open");
+        Debug.Log( GetComponent<NavMeshObstacle>());
+        GetComponent<NavMeshObstacle>().enabled = false;
+        //SetPlanes(false);
 
-        SetPlanes(false);
     }
-    
+    /*
     void SetPlanes(bool _state)
     {
         if (obstructionPlanes.Count == 0)
@@ -33,5 +36,6 @@ public class Door : MonoBehaviour
             plane.SetActive(_state);
         }
     }
+    */
 
 }
