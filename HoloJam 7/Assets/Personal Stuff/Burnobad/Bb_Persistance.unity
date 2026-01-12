@@ -384,7 +384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &672596646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,6 +882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelCompeleScreen: {fileID: 2028442422}
+  nextLevelButton: {fileID: 1465047020}
   tempLoseScreen: {fileID: 187641980}
   sfxSource: {fileID: 880330103}
 --- !u!4 &880330102

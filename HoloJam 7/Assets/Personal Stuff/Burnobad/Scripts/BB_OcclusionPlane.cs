@@ -7,7 +7,7 @@ public class BB_OcclusionPlane : MonoBehaviour
     [SerializeField]
     private List<BB_NavMeshAgent> agents;
 
-    private void OnEnable()
+    private void Start()
     {
         agents.Clear();
     }
