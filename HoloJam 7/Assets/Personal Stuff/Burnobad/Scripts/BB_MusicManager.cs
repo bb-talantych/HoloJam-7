@@ -29,13 +29,23 @@ public class BB_MusicManager : MonoBehaviour
     private float levelCompleteMusicVolume = 0.25f;
 
     [SerializeField]
-    private List<AudioClip> mainMenuClips;
+    private List<AudioClip> mainMenuClip;
     [SerializeField]
     private List<AudioClip> ezLevelClips;
     [SerializeField]
     private List<AudioClip> medLevelClips;
     [SerializeField]
     private List<AudioClip> hardLevelClips;
+
+    [SerializeField]
+    private List<AudioClip> gameWinClip;
+    [SerializeField]
+    private List<AudioClip> cutsceneNeutral;
+    [SerializeField]
+    private List<AudioClip> cutsceneWhacky;
+    [SerializeField]
+    private List<AudioClip> theTruth;
+
 
     private IEnumerator musicCor = null;
 
@@ -69,13 +79,13 @@ public class BB_MusicManager : MonoBehaviour
         switch(_scene)
         {
             case BB_GameScenes.GameScenes.IF_MainMenu1:
-                PlayMusic(mainMenuClips, _isReload);
+                PlayMusic(mainMenuClip, _isReload);
                 break;
             case BB_GameScenes.GameScenes.BB_TestScene:
                 PlayMusic(ezLevelClips, _isReload);
                 break;
             case BB_GameScenes.GameScenes.LevelTutorial:
-                PlayMusic(mainMenuClips, _isReload);
+                PlayMusic(mainMenuClip, _isReload);
                 break;
             case BB_GameScenes.GameScenes.LevelOne:
                 PlayMusic(ezLevelClips, _isReload);
@@ -87,6 +97,34 @@ public class BB_MusicManager : MonoBehaviour
                 PlayMusic(hardLevelClips, _isReload);
                 break;
 
+            case BB_GameScenes.GameScenes.Cutscene1:
+                PlayMusic(cutsceneNeutral, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene2:
+                PlayMusic(theTruth, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene3:
+                PlayMusic(cutsceneNeutral, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene4:
+                PlayMusic(theTruth, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene5:
+                PlayMusic(cutsceneWhacky, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene6:
+                PlayMusic(theTruth, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene7:
+                PlayMusic(cutsceneNeutral, _isReload);
+                break;
+            case BB_GameScenes.GameScenes.Cutscene8:
+                PlayMusic(cutsceneWhacky, _isReload);
+                break;
+
+            case BB_GameScenes.GameScenes.VictoryScrean:
+                PlayMusic(gameWinClip, _isReload);
+                break;
 
             default:
                 musicSource.Stop();
