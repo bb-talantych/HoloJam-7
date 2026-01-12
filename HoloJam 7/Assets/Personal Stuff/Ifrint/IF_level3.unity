@@ -4527,9 +4527,7 @@ MonoBehaviour:
   - {fileID: 432528058}
   - {fileID: 1099431366}
   sceneTasks:
-  - {fileID: 2031597347}
-  - {fileID: 1540361838}
-  - {fileID: 1820185923}
+  - {fileID: 1444086146}
   nextLevel: 15
   cam: {fileID: 507827055}
 --- !u!4 &510445955
@@ -4563,7 +4561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &516065143
 MonoBehaviour:
   m_ObjectHideFlags: 0

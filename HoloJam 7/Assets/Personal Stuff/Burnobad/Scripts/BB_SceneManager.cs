@@ -107,11 +107,11 @@ public class BB_SceneManager : MonoBehaviour
 
         currentScene = _sceneToLoad;
 
+        Event_LevelLoaded?.Invoke(currentScene, _isReload);
+
         transitionAnimator.SetTrigger("EndTransition");
         //testing
         yield return new WaitForSeconds(1);
-
-        Event_LevelLoaded?.Invoke(currentScene, _isReload);
     }
 
     #region Public Methodes

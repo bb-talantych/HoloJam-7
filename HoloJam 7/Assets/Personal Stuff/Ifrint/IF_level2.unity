@@ -4790,10 +4790,8 @@ MonoBehaviour:
   - {fileID: 1950006094}
   - {fileID: 736728418}
   sceneTasks:
-  - {fileID: 2031597347}
   - {fileID: 1540361838}
-  - {fileID: 1820185923}
-  nextLevel: 2
+  nextLevel: 12
   cam: {fileID: 507827055}
 --- !u!4 &510445955
 Transform:
@@ -4826,7 +4824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &516065143
 MonoBehaviour:
   m_ObjectHideFlags: 0
