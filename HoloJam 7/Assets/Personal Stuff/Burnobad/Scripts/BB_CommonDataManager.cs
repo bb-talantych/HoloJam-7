@@ -80,19 +80,21 @@ namespace BB_Scenes
             NoScene,
             MainMenu,
             BB_TestScene,
+
             IF_MainMenu1,
-            LevelTutorial,
-            LevelOne,
-            LevelTwo,
-            LevelThree,
             Cutscene1,
+            LevelTutorial,
             Cutscene2,
             Cutscene3,
+            LevelOne,
             Cutscene4,
             Cutscene5,
+            LevelTwo,
             Cutscene6,
             Cutscene7,
-            Cutscene8
+            LevelThree,
+            Cutscene8,
+            VictoryScrean
         }
 
         public const string nonScene = "";
@@ -112,6 +114,7 @@ namespace BB_Scenes
         public const string Cutscene6 = "Cutscene6";
         public const string Cutscene7 = "Cutscene7";
         public const string Cutscene8 = "Cutscene8";
+        public const string VictoryScrean = "TempYouWin";
 
         public static string GetScene(GameScenes _selectedScene)
         {
@@ -167,6 +170,10 @@ namespace BB_Scenes
                     break;
                 case GameScenes.Cutscene8:
                     scene = Cutscene8;
+                    break;
+
+                case GameScenes.VictoryScrean:
+                    scene = VictoryScrean;
                     break;
             }
             return scene;

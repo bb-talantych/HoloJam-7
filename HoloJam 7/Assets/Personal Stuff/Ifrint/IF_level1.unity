@@ -1716,6 +1716,7 @@ MonoBehaviour:
   selectedColor: {r: 0, g: 0.23921569, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!95 &115264579
 Animator:
   serializedVersion: 7
@@ -4185,6 +4186,7 @@ MonoBehaviour:
   - {fileID: 2031597347}
   - {fileID: 1540361838}
   - {fileID: 1820185923}
+  nextLevel: 9
   cam: {fileID: 507827055}
 --- !u!4 &510445955
 Transform:
@@ -8772,6 +8774,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!114 &1155198802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10526,6 +10529,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 0.5280086, b: 0, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!95 &1421869384
 Animator:
   serializedVersion: 7
@@ -10684,6 +10688,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!114 &1444086146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11914,6 +11919,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!82 &1540361844
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14265,6 +14271,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!82 &1820185929
 AudioSource:
   m_ObjectHideFlags: 0
@@ -15908,6 +15915,7 @@ MonoBehaviour:
   selectedColor: {r: 1, g: 1, b: 1, a: 1}
   outlineShader_3d: {fileID: 4800000, guid: 6dbd5a8c953e14f4f8cec04ec71a5eb1, type: 3}
   outlineShader_2d: {fileID: 4800000, guid: 5e63ff8a8c00edc49ba1c8f8397fe48a, type: 3}
+  mshRenderer: {fileID: 0}
 --- !u!82 &2031597349
 AudioSource:
   m_ObjectHideFlags: 0

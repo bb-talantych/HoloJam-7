@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2c8c4d9be80e343bf599176dea2fd8, type: 3}
   m_Name: Finish Cutscene
   m_EditorClassIdentifier: Assembly-CSharp::FinishCutscene
+  scene: 8
