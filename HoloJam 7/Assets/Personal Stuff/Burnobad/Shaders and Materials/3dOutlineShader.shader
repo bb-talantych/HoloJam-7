@@ -20,12 +20,15 @@ Shader "BB_Shaders/3D-Outline-Shader"
             #pragma fragment frag
 
             #pragma multi_compile __ OUTLINE_ON
+            //#define OUTLINE_ON
 
             #include "UnityCG.cginc"
 
             struct appdata
             {
                 float4 vertex : POSITION;
+
+
                 float3 normal : NORMAL;
             };
 

@@ -18,7 +18,7 @@ public class BB_AddOutline : MonoBehaviour
     public Shader outlineShader_2d;
     private Material outlineMaterial;
 
-
+    [SerializeField]
     private MeshRenderer mshRenderer;
     private SpriteRenderer sprRenderer;
 
@@ -113,6 +113,11 @@ public class BB_AddOutline : MonoBehaviour
             {
                 EnableOutlines(hoverColor);
             }
+            else if(agent == null && task == null)
+            {
+                Debug.Log(this.name);
+                EnableOutlines(hoverColor);
+            }
             else
             {
                 EnableOutlines(selectedColor);
@@ -175,6 +180,7 @@ public class BB_AddOutline : MonoBehaviour
                 return false;
         }
 
+
         return true;
     }
     bool DisableOutlinesCondition()
@@ -188,7 +194,6 @@ public class BB_AddOutline : MonoBehaviour
     }
 
     #endregion
-
     #region For Events
     void OnTaskAssigned(object _sender, EventArgs e)
     {
