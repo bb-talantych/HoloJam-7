@@ -7,9 +7,12 @@ public class BB_OcclusionPlane : MonoBehaviour
     [SerializeField]
     private List<BB_NavMeshAgent> agents;
 
+
+    [SerializeField] private MeshRenderer msh;
     private void Start()
     {
         agents.Clear();
+        msh.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
