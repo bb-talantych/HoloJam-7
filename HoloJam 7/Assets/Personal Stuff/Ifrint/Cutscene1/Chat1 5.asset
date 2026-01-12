@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ba092a1860f7948ad4f918f8b6a66a, type: 3}
   m_Name: Chat1 5
   m_EditorClassIdentifier: Assembly-CSharp::SpeakStep
-  chatText: Oh, Ok! I'll give you a hand with preparing for Holofest.
+  chatText: Oh, Ok! I'll give you a hand with preparing.

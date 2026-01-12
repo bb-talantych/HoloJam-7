@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneData
   steps:
   - {fileID: 11400000, guid: 6e011abde1d9baa4bb69aa4b69373005, type: 2}
-  - {fileID: 11400000, guid: 22e171d6d22d82d439d82886e7cb3629, type: 2}
   - {fileID: 11400000, guid: ea7de9008e550da4da12eb70bd0f85e8, type: 2}
   - {fileID: 11400000, guid: 2ecd81ede9c96944cadbb127a2f5de45, type: 2}
   - {fileID: 11400000, guid: 31f142f3209e5294b96a2e7e7f632531, type: 2}
