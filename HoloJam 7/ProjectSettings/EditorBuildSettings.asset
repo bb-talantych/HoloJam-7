@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Personal Stuff/Burnobad/Bb_Persistance.unity
-    guid: a8dd8058fdd69b34ebb5308018093ebe
+    guid: 316da2a6da92b9d44871493c933c132d
   - enabled: 1
     path: Assets/Personal Stuff/Burnobad/BB_MainMenu.unity
     guid: 677cda694df60f74a8d6d28d20fa1407
@@ -29,5 +29,29 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Personal Stuff/Ifrint/IF_level3.unity
     guid: c751609acabc1f54c84b311d7b58603d
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene1/Cutscene1.unity
+    guid: fe078c9a12a0ebc499b5098130c3ecf5
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene2/Cutscene2.unity
+    guid: e77f8e2d10804734ea791e45e0d21d1b
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene3/Cutscene3.unity
+    guid: 1c9a30e3237024c4c82370df35e69d62
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene4/Cutscene4.unity
+    guid: e7f8635f25ceaa14b82e7935a5119104
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene6/Cutscene5.unity
+    guid: 807f1e41817228045a2abe32f2229707
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene5/Cutscene6.unity
+    guid: 9527aa7b4222e1b479e962f55920d456
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene8/Cutscene7.unity
+    guid: dc565ebc88ffddc4abb8d96a3600986a
+  - enabled: 1
+    path: Assets/Personal Stuff/Ifrint/Cutscene7/Cutscene8.unity
+    guid: 4051ad3b679c6d3449a03938410f6303
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
