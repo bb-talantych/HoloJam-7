@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a0b1caa83188d40bbbaea3b680cd3e, type: 3}
+  m_Name: Cut8Data
+  m_EditorClassIdentifier: Assembly-CSharp::SceneData
+  steps:
+  - {fileID: 11400000, guid: 6e011abde1d9baa4bb69aa4b69373005, type: 2}
+  - {fileID: 11400000, guid: 8e6c422ef5b4f5e419b6c1f4b65867e8, type: 2}
+  - {fileID: 11400000, guid: 1e8b6bad7e84631469698b98b9f96281, type: 2}
+  - {fileID: 11400000, guid: 79edd70193ea3ad4d96de7a49caa99a2, type: 2}
+  - {fileID: 11400000, guid: 598b25ea1234ed24bbced5969a78b6ce, type: 2}
+  - {fileID: 11400000, guid: 1edf0833520ed234285f51c6df90c104, type: 2}
+  - {fileID: 11400000, guid: 580e024ad52aaef44a46deffb021b57e, type: 2}
+  - {fileID: 11400000, guid: d8ab329d6551389408c1e7adf859f6f4, type: 2}
+  - {fileID: 11400000, guid: d4fe58be154899c47947179a8526c96e, type: 2}
+  - {fileID: 11400000, guid: 8fe7c2d9a31880b44a04218023c6e9f1, type: 2}
+  - {fileID: 11400000, guid: 0ef0bb4f8ac69de469f4f66f363ccf07, type: 2}
+  - {fileID: 11400000, guid: cf07cde9d582cd342a655d92c97b14b0, type: 2}
+  - {fileID: 11400000, guid: 5a2bc4b97158d434e96e0177f544d050, type: 2}
+  - {fileID: 11400000, guid: 8fe7c2d9a31880b44a04218023c6e9f1, type: 2}
+  - {fileID: 11400000, guid: 9df4c538eb2bebd41b2af87b936536aa, type: 2}
+  - {fileID: 11400000, guid: 1e8b6bad7e84631469698b98b9f96281, type: 2}
+  - {fileID: 11400000, guid: 36d485fdaabaaed42a1b3dc51a069b67, type: 2}
+  - {fileID: 11400000, guid: 1061f49a20921474f96c4a027d58cae5, type: 2}
+  - {fileID: 11400000, guid: 8b617a147c5872142ab1c3072ccbc998, type: 2}
+  - {fileID: 11400000, guid: d77d235f8db35bd4aadbb17004cc43e7, type: 2}
+  - {fileID: 11400000, guid: 05abb91a384272f489354a1320666ff3, type: 2}
