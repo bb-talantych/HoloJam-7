@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System;
 using BB_Scenes;
+using UnityEngine.UI;
 
 public class BB_GameManager : MonoBehaviour
 {
@@ -26,11 +27,14 @@ public class BB_GameManager : MonoBehaviour
     bool gameOver = false;
 
     //testing
-    public GameObject tempWinScreen;
+    public GameObject levelCompeleScreen;
+    public Button nextLevelButton;
     public GameObject tempLoseScreen;
 
     [SerializeField]
     private AudioSource sfxSource;
+
+    private BB_AssignmentManager levelManager;
 
     #region Events
 
@@ -48,6 +52,10 @@ public class BB_GameManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
+        levelCompeleScreen.SetActive(false);
+        tempLoseScreen.SetActive(false);
+
+        BB_SceneManager.Event_ScreenDimmed += OnScreenDimmed;
         BB_SceneManager.Event_LevelLoaded += OnLevelLoaded;
         BB_AssignmentManager.Event_LevelCompleted += OnLevelCompleted;
         BB_LevelTimer.Event_LevelTimerEnded += OnLevelTimerEnded;
@@ -57,6 +65,7 @@ public class BB_GameManager : MonoBehaviour
     {
         //Debug.Log(this.name + ": triggered OnDisable");
 
+        BB_SceneManager.Event_ScreenDimmed -= OnScreenDimmed;
         BB_SceneManager.Event_LevelLoaded -= OnLevelLoaded;
         BB_AssignmentManager.Event_LevelCompleted -= OnLevelCompleted;
         BB_LevelTimer.Event_LevelTimerEnded -= OnLevelTimerEnded;
@@ -78,7 +87,7 @@ public class BB_GameManager : MonoBehaviour
         gameOver = false;
         Time.timeScale = 1;
 
-        tempWinScreen.SetActive(false);
+        levelCompeleScreen.SetActive(false);
         tempLoseScreen.SetActive(false);
     }
     void GameOver()
@@ -86,7 +95,7 @@ public class BB_GameManager : MonoBehaviour
         Debug.Log(this.name.ToString() + ": Game Over");
         gameOver = true;
 
-        tempWinScreen.SetActive(false);
+        levelCompeleScreen.SetActive(false);
         tempLoseScreen.SetActive(true);
         Time.timeScale = 0;
 
@@ -98,6 +107,9 @@ public class BB_GameManager : MonoBehaviour
     private void OnGameStart()
     {
         Debug.Log(this.name.ToString() + ": Game Start");
+
+        levelCompeleScreen.SetActive(false);
+        tempLoseScreen.SetActive(false);
     }
     private void OnLevelLoaded(BB_GameScenes.GameScenes _scene, bool _isReload)
     {
@@ -113,7 +125,9 @@ public class BB_GameManager : MonoBehaviour
         Debug.Log(this.name.ToString() + ": Level Completed");
         gameOver = false;
 
-        tempWinScreen.SetActive(true);
+        levelManager = (BB_AssignmentManager)_sender;
+        levelCompeleScreen.SetActive(true);
+        nextLevelButton.onClick.AddListener(OnButtonClick);
         tempLoseScreen.SetActive(false);
 
         BB_CommonDataManager.Instance.PlayClip(sfxSource, BB_CommonDataManager.Instance.levelCompleteClips);
@@ -122,6 +136,17 @@ public class BB_GameManager : MonoBehaviour
     {
         GameOver();
     }
+
+    private void OnScreenDimmed()
+    {
+        levelCompeleScreen.SetActive(false);
+        tempLoseScreen.SetActive(false);
+    }
+    private void OnButtonClick()
+    {
+        BB_SceneManager.Instance.LoadLevel(levelManager.NextLevel, this.name);
+    }
+
 
     #endregion
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using BB_Scenes;
 
 public class BB_AssignmentManager : MonoBehaviour
 {
@@ -29,6 +30,11 @@ public class BB_AssignmentManager : MonoBehaviour
     new List<BB_NavMeshAgent>();
     public List<BB_Task> sceneTasks =
         new List<BB_Task>();
+
+    [SerializeField]
+    private BB_GameScenes.GameScenes nextLevel = BB_GameScenes.GameScenes.BB_TestScene;
+    public BB_GameScenes.GameScenes NextLevel
+        { get { return nextLevel; } }
 
     public Camera cam;
     public BB_NavMeshAgent SelectedAgent

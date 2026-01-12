@@ -32,6 +32,7 @@ public class BB_SceneManager : MonoBehaviour
     private BB_GameScenes.GameScenes currentScene = BB_GameScenes.GameScenes.NoScene;
 
     public static event Action<BB_GameScenes.GameScenes, bool> Event_LevelLoaded;
+    public static event Action Event_ScreenDimmed;
 
     #region On Enable/Disable
     private void OnEnable()
@@ -77,6 +78,7 @@ public class BB_SceneManager : MonoBehaviour
             transitionAnimator.SetTrigger("StartTransition");
             //testing
             yield return new WaitForSeconds(1);
+            Event_ScreenDimmed?.Invoke();
 
             string currentSceneName = BB_GameScenes.GetScene(currentScene);
             AsyncOperation unloadSceneAsync =
