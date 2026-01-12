@@ -1784,7 +1784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbd809589dad0843927c1e29177064f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScene: 6
+  mainMenuScene: 3
   transitionAnimator: {fileID: 1150462688}
 --- !u!4 &1930480337
 Transform:
